@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Génesis — Desafío Revolución Francesa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Playfair+Display:ital,wght@0,400;1,600&display=swap');
+
+/* --- ESTRUCTURA GENERAL --- */
+body {
+    background-color: #f4e4bc;
+    font-family: 'Playfair Display', serif;
+    color: #3e2723;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #f7f0d8;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 2px solid #a07520;
+}
+
+/* --- SOBRE (Flotante y místico) --- */
+#pantalla-sobre {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    animation: flotar 3s infinite ease-in-out;
+}
+
+#pantalla-sobre img {
+    width: 320px;
+    transition: transform 0.3s;
+}
+
+#pantalla-sobre:hover img {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 15px #ffd700);
+}
+
+.texto-sello {
+    font-family: 'Dancing Script', cursive !important; /* Letra cursiva mística fijada */
+    font-size: 1.5rem !important;
+    color: #4a3728;
+    margin-top: 15px;
+    text-align: center;
+    width: 350px;
+}
+
+/* --- PERGAMINO --- */
+#pantalla-pergamino {
+    display: none;
+    background: #fffaf0 url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 2px solid #b8860b;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    text-align: center;
+    animation: aparecer 1s ease-out;
+}
+
+/* --- BOTONES --- */
+#juego button {
+    background-color: #3b1f4e; 
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    border-radius: 5px;
+    display: block;
+    margin: 20px auto;
+}
+
+#pantalla-pergamino button {
+    background-color: #3b1f4e; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes flotar {
+    0%, 100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, -60%); }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="juego">
+    <h2>Desafío de la Revolución Francesa</h2>
+    <div id="contenedor-preguntas"></div>
+    <button onclick="verificar()">Enviar Respuestas</button>
+</div>
+
+<div id="pantalla-sobre" style="display: none; text-align: center; margin-top: 50px;">
+    <div class="carta-container" onclick="abrirSobre()" style="cursor: pointer;">
+        <img src="imagen.png.jfif" alt="Sobre antiguo" style="width: 300px;">
+        <p class="texto-sello">"Las verdades del pasado se ocultan bajo este sello. Tócalo para revelar lo que tus respuestas han dictaminado."</p>
+    </div>
+</div>
+
+<div id="pantalla-pergamino" style="display: none;">
+    <h2 id="mensaje-motivador"></h2>
+    <p id="mensaje-puntos"></p>
+    <div id="revision"></div>
+    <button onclick="window.location.href='Apartados.html'">Volver al Inicio</button>
+</div>
+
+<script>
+let listaPreguntas = [];
+let correctasGlobal = 0;
+let feedbackHTMLGlobal = "";
+
+// Función utilitaria para desordenar cualquier array aleatoriamente
+function desordenar(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// 1. CARGA INICIAL: Apuntando al id_tema = 5
+fetch('cuestionario.php?tema_id=5')
+    .then(response => response.json())
+    .then(data => {
+        // Mezclamos el orden de las preguntas de la base de datos
+        listaPreguntas = desordenar(data);
+        
+        const contenedor = document.getElementById('contenedor-preguntas');
+        contenedor.innerHTML = ""; 
+        
+        listaPreguntas.forEach((item, index) => {
+            let htmlPregunta = `<div class="pregunta-box" style="margin-bottom: 25px; padding: 15px; border: 1px solid #dcdcdc; border-radius: 8px;">
+                                   <p><strong>${index + 1}. ${item.enunciado}</strong></p>`;
+            
+            // Mezclamos también el orden interno de sus respuestas para que no aparezca la correcta siempre de primera
+            let respuestasMezcladas = desordenar([...item.respuestas]);
+            
+            respuestasMezcladas.forEach(res => {
+                htmlPregunta += `<label style="display: block; margin: 5px 0; cursor:pointer;">
+                    <input type="radio" name="p${item.id_pregunta}" value="${res.es_correcta}">
+                    ${res.texto_respuesta}
+                </label>`;
+            });
+            htmlPregunta += `</div>`;
+            contenedor.innerHTML += htmlPregunta;
+        });
+    });
+
+// 2. VERIFICACIÓN
+function verificar() {
+    let correctas = 0;
+    let feedbackHTML = "<ul>";
+    
+    listaPreguntas.forEach((item, index) => {
+        const sel = document.querySelector(`input[name="p${item.id_pregunta}"]:checked`);
+        if (sel && sel.value === "1") { 
+            correctas++;
+            feedbackHTML += `<li style='color:#2d5a27;'>✅ Pregunta ${index + 1} correcta</li>`; 
+        } else {
+            feedbackHTML += `<li style='color:#a32a2a;'>❌ Pregunta ${index + 1} incorrecta</li>`;
+        }
+    });
+    correctasGlobal = correctas;
+    feedbackHTMLGlobal = feedbackHTML + "</ul>";
+    
+    document.getElementById('juego').style.display = 'none';
+    document.getElementById('pantalla-sobre').style.display = 'block';
+    guardarEnBaseDeDatos(correctas);
+}
+
+// 3. ABRIR SOBRE
+function abrirSobre() {
+    const pantallaSobre = document.getElementById('pantalla-sobre');
+    const pantallaPergamino = document.getElementById('pantalla-pergamino');
+    
+    pantallaSobre.style.display = 'none';
+    pantallaPergamino.style.display = 'block';
+    
+    setTimeout(() => {
+        pantallaPergamino.style.opacity = '1';
+        pantallaPergamino.style.transform = 'scale(1)';
+        
+        document.getElementById('mensaje-puntos').innerHTML = `Lograste <strong>${correctasGlobal}/${listaPreguntas.length}</strong>`;
+        document.getElementById('revision').innerHTML = feedbackHTMLGlobal;
+        iniciarEscritura();
+    }, 100); 
+}
+
+// 4. FUNCIÓN ESCRIBIR
+function iniciarEscritura() {
+    let mensaje = (correctasGlobal === listaPreguntas.length) ? "¡RÉCORD SUPREMO: ERES EL ALMA DE LA ILUSTRACIÓN!" : 
+                  (correctasGlobal >= 15) ? "¡EXCELENTE: UN AUTÉNTICO REVOLUCIONARIO LIBERTADOR!" : 
+                  (correctasGlobal >= 10) ? "¡BUEN TRABAJO: SOBREVIVISTE AL RÉGIMEN DEL TERROR!" : 
+                  "¡CAÍSTE EN LA GUILLOTINA: REVISA TUS APUNTES Y REVOLUCIONA TU MENTE!";
+    
+    const elementoMensaje = document.getElementById('mensaje-motivador');
+    elementoMensaje.innerText = "";
+    let i = 0;
+    function escribir() {
+        if (i < mensaje.length) {
+            elementoMensaje.innerHTML += mensaje.charAt(i);
+            i++;
+            setTimeout(escribir, 50);
+        }
+    }
+    escribir();
+}
+
+// 5. GUARDAR EN BD (id_tema = 5)
+function guardarEnBaseDeDatos(puntajeTotal) {
+    let datos = new FormData();
+    datos.append('puntaje', puntajeTotal);
+    datos.append('id_tema', 5);
+    fetch('guardar_partida.php', { method: 'POST', body: datos });
+}
+</script>
+</body>
+</html>

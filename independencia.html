@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Independencia de Colombia — Génesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:         #1e1509;
+  --ink-mid:     #3b2a14;
+  --ink-soft:    #5c4228;
+  --purple:      #3b1f4e;
+  --purple-mid:  #6b3f8a;
+  --purple-pale: #b89fd0;
+  --gold:        #a07520;
+  --gold-light:  #c9953a;
+  --parch:       #ede0be;
+  --sepia:       #8b6840;
+  --cream:       #faf4e1;
+}
+
+html { scroll-behavior: smooth; }
+
+/* ══ BODY — parchment base ══ */
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--ink);
+  background-color: #c8b070;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.45 0 0 0 0 0.32 0 0 0 0 0.10 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 120% 80% at 10% 5%,  rgba(210,185,110,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 90% 95%, rgba(160,120,50,0.4)  0%, transparent 55%),
+    radial-gradient(ellipse 80%  60% at 50% 50%, rgba(230,210,145,0.5) 0%, transparent 60%),
+    linear-gradient(160deg, #e8d9a0 0%, #d9c580 35%, #c8af60 65%, #bba055 100%);
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 80% at 0%   0%,   rgba(70,45,10,0.28) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 100% 0%,   rgba(70,45,10,0.22) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 0%   100%, rgba(70,45,10,0.25) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 100% 100%, rgba(70,45,10,0.25) 0%, transparent 40%);
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* ══ TOP BAR ══ */
+.top-bar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 32px;
+  background: rgba(200,175,100,0.65);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(59,31,78,0.18);
+}
+.btn-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--ink-mid);
+  text-decoration: none;
+  background: none; border: 1px solid rgba(100,70,20,0.35);
+  padding: 7px 16px; border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn-back:hover {
+  background: rgba(59,31,78,0.08);
+  border-color: var(--gold); color: var(--purple);
+}
+.btn-back::before { content: '←'; font-size: 14px; }
+
+.top-project {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 18px;
+  color: var(--purple); opacity: 0.7;
+}
+
+/* ══ SCROLL WRAPPER ══ */
+.scroll-wrap {
+  position: relative; z-index: 1;
+  max-width: 800px;
+  margin: 48px auto 80px;
+  padding: 0 24px;
+}
+
+/* ══ PARCHMENT SCROLL ══ */
+.parchment {
+  position: relative;
+  background-color: #f5eacc;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.55 0 0 0 0 0.42 0 0 0 0 0.22 0 0 0 0.10 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(180deg, transparent 0px, transparent 2px, rgba(100,70,20,0.018) 2px, rgba(100,70,20,0.018) 3px),
+    radial-gradient(ellipse 110% 60% at 50% 10%, rgba(255,245,210,0.7) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 10% 90%,  rgba(180,145,75,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 90% 80%,  rgba(180,145,75,0.2) 0%, transparent 50%),
+    linear-gradient(175deg, #faf3dc 0%, #f0e4b8 30%, #e8d8a0 60%, #dfd098 100%);
+  border-radius: 2px;
+  box-shadow:
+    0 8px 40px rgba(42,31,14,0.28),
+    0 2px 8px  rgba(42,31,14,0.18),
+    inset 0 0 0 1px rgba(100,70,20,0.12);
+  padding: 60px 64px 72px;
+}
+
+/* Scroll curled top edge */
+.parchment::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 18px;
+  background: linear-gradient(to bottom, rgba(100,70,20,0.10) 0%, transparent 100%);
+  border-radius: 2px 2px 0 0;
+}
+/* Scroll curled bottom edge */
+.parchment::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 18px;
+  background: linear-gradient(to top, rgba(100,70,20,0.10) 0%, transparent 100%);
+  border-radius: 0 0 2px 2px;
+}
+
+/* Aged ink stains on parchment */
+.p-stain {
+  position: absolute; border-radius: 50%; pointer-events: none;
+}
+
+/* ══ ORNAMENTAL HEADER ══ */
+.doc-header { text-align: center; margin-bottom: 44px; }
+
+.doc-eyebrow {
+  font-size: 10px; letter-spacing: 0.65em; text-transform: uppercase;
+  color: var(--purple-mid); margin-bottom: 14px; display: block;
+}
+
+.ornament-row {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  margin: 0 auto 16px; max-width: 340px;
+}
+.ornament-row::before, .ornament-row::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.ornament-sym { color: var(--gold); font-size: 13px; letter-spacing: 0.2em; }
+
+.doc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700; line-height: 1.1;
+  color: var(--purple);
+}
+
+.doc-subtitle {
+  font-family: 'IM Fell English', serif;
+  font-style: italic; font-size: 15px;
+  color: var(--ink-soft); margin-top: 10px;
+}
+
+.ornament-row-sm {
+  display: flex; align-items: center; gap: 10px;
+  max-width: 220px; margin: 18px auto 0;
+}
+.ornament-row-sm::before, .ornament-row-sm::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160,117,32,0.5), transparent);
+}
+.ornament-row-sm span { font-size: 10px; color: var(--gold); opacity: 0.7; }
+
+/* ══ BODY TEXT ══ */
+.doc-body { position: relative; z-index: 1; }
+
+.doc-section { margin-bottom: 36px; }
+
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(160,117,32,0.3);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-heading::before {
+  content: '✦';
+  font-size: 10px; color: var(--gold); opacity: 0.7;
+}
+
+p {
+  font-family: 'IM Fell English', serif;
+  font-size: 17px; line-height: 1.9;
+  color: var(--ink-mid);
+  margin-bottom: 18px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* Drop cap on first paragraph */
+.drop-cap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px; font-weight: 700;
+  float: left;
+  line-height: 0.75;
+  margin: 6px 10px 0 0;
+  color: var(--purple);
+  padding: 0 2px;
+}
+
+/* ══ IMAGE SLOTS ══ */
+.img-slot {
+  position: relative;
+  width: 100%;
+  margin: 32px 0;
+  border: 1px solid rgba(100,70,20,0.25);
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: rgba(200,175,100,0.2);
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0px, transparent 2px, rgba(100,70,20,0.015) 2px, rgba(100,70,20,0.015) 3px);
+  box-shadow: inset 0 0 0 1px rgba(255,245,210,0.5), 0 2px 8px rgba(42,31,14,0.1);
+}
+
+.img-slot-inner {
+  min-height: 220px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px; padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.img-slot-inner:hover { background: rgba(59,31,78,0.04); }
+.img-slot-inner.has-img { min-height: unset; padding: 0; display: block; }
+
+.img-slot img {
+  width: 100%; display: block;
+  max-height: 380px; object-fit: cover;
+}
+
+.img-slot-icon { font-size: 28px; color: var(--gold); opacity: 0.55; }
+.img-slot-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--sepia); opacity: 0.8;
+}
+.img-slot-caption-input {
+  width: 100%; padding: 8px 14px;
+  font-family: 'IM Fell English', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--ink-mid);
+  background: rgba(200,175,100,0.25);
+  border: none; border-top: 1px solid rgba(100,70,20,0.2);
+  outline: none; text-align: center;
+}
+.img-slot-caption-input::placeholder { color: rgba(92,66,40,0.45); }
+
+.img-slot input[type="file"] {
+  position: absolute; inset: 0; opacity: 0;
+  cursor: pointer; width: 100%; height: 100%;
+}
+
+/* Change button */
+.img-change-btn {
+  position: absolute; top: 8px; right: 8px;
+  background: rgba(30,21,9,0.6);
+  border: 1px solid rgba(160,117,32,0.5);
+  border-radius: 2px;
+  padding: 4px 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold-light);
+  cursor: pointer; opacity: 0; transition: opacity 0.25s;
+  display: none;
+}
+.img-slot:hover .img-change-btn { opacity: 1; }
+.img-change-btn input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer;
+}
+
+/* ══ SECTION DIVIDER ══ */
+.sec-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 40px 0 36px;
+  color: var(--gold);
+}
+.sec-divider::before, .sec-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160,117,32,0.45), transparent);
+}
+.sec-divider span { font-size: 14px; opacity: 0.6; }
+
+/* ══ BOTTOM BUTTON ══ */
+.bottom-bar {
+  text-align: center;
+  margin-top: 52px; padding-top: 40px;
+  border-top: 1px solid rgba(100,70,20,0.25);
+  position: relative; z-index: 1;
+}
+.btn-questions {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px; letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--cream);
+  background: var(--purple);
+  border: 1px solid rgba(107,63,138,0.6);
+  padding: 14px 32px; border-radius: 2px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.25s, box-shadow 0.25s;
+  box-shadow: 0 2px 12px rgba(59,31,78,0.2);
+}
+.btn-questions:hover {
+  background: var(--purple-mid);
+  box-shadow: 0 4px 20px rgba(59,31,78,0.35);
+}
+.btn-questions::after { content: '→'; font-size: 15px; }
+
+.bottom-note {
+  font-family: 'IM Fell English', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--sepia); margin-top: 14px; opacity: 0.75;
+}
+
+@media (max-width: 640px) {
+  .parchment { padding: 36px 24px 48px; }
+  .top-bar { padding: 10px 16px; }
+  .top-project { display: none; }
+}
+/* Estilo para que la imagen se vea completa, brille y no tenga botones */
+.imagen-historica {
+    width: 100% !important;
+    max-width: 500px !important;
+    max-height: 400px !important; 
+    object-fit: contain !important; /* Muestra a Bolívar completo sin cortes */
+    display: block !important;
+    margin: 20px auto !important;
+    border: 3px solid #a07520 !important;
+    border-radius: 12px !important;
+    transition: all 0.4s ease !important;
+    cursor: pointer !important;
+    background-color: transparent !important;
+}
+
+/* El Brillo Amarillo (Hover) */
+.imagen-historica:hover {
+    transform: scale(1.05) !important;
+    filter: drop-shadow(0 0 25px #ffd700) brightness(1.1) !important;
+    border-color: #ffd700 !important;
+}
+
+/* Estilo para las frases */
+.frase-historica {
+    font-family: 'Dancing Script', cursive !important;
+    font-size: 1.6rem !important;
+    color: #4a3728 !important;
+    text-align: center !important;
+    display: block !important;
+    margin: 25px auto 5px auto !important;
+}
+.imagen-historica {
+    width: 100%;
+    max-height: 400px; /* Altura máxima para que no ocupe toda la pantalla */
+    object-fit: contain; /* ¡Aquí está el truco! Muestra la imagen completa */
+    background-color: rgba(0,0,0,0.05); /* Un fondo suave por si la imagen es pequeña */
+    display: block;
+    margin: 10px auto;
+    border: 2px solid #b8860b;
+    border-radius: 5px;
+}
+
+/* Estilo para las frases en cursiva */
+.frase-historica {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: #5d4037;
+    text-align: center;
+    display: block;
+    margin-bottom: 5px;
+    padding: 0 10px;
+}
+</style>
+</head>
+<body>
+
+<!-- ══ TOP BAR ══ -->
+<div class="top-bar">
+  <a class="btn-back" href="Apartados.html">Volver</a>
+  <span class="top-project">Génesis</span>
+</div>
+
+<!-- ══ SCROLL WRAPPER ══ -->
+<div class="scroll-wrap">
+<div class="parchment">
+
+  <!-- Aged stains on parchment -->
+  <div class="p-stain" style="width:200px;height:160px;top:-30px;right:-40px;background:radial-gradient(ellipse,rgba(100,65,20,0.07) 0%,transparent 70%);"></div>
+  <div class="p-stain" style="width:150px;height:120px;bottom:80px;left:-30px;background:radial-gradient(ellipse,rgba(59,31,78,0.05) 0%,transparent 70%);"></div>
+  <div class="p-stain" style="width:90px;height:90px;top:40%;right:5%;background:radial-gradient(ellipse,rgba(122,59,30,0.04) 0%,transparent 70%);"></div>
+
+  <!-- ══ DOCUMENT HEADER ══ -->
+  <div class="doc-header">
+    <span class="doc-eyebrow">Historia de Colombia · Génesis</span>
+    <div class="ornament-row"><span class="ornament-sym">✦ ✦ ✦</span></div>
+    <h1 class="doc-title">Independencia<br>de Colombia</h1>
+    <p class="doc-subtitle">Un proceso histórico complejo · Siglos XVIII–XIX</p>
+    <div class="ornament-row-sm"><span>✦</span></div>
+  </div>
+
+  <!-- ══ BODY ══ -->
+  <div class="doc-body">
+
+    <!-- INTRO -->
+    <div class="doc-section">
+      <p class="drop-cap">La independencia de Colombia fue un proceso histórico complejo que tuvo lugar a comienzos del siglo XIX, cuando los territorios del Virreinato de la Nueva Granada buscaron liberarse del dominio del Imperio español. Este proceso fue largo y estuvo marcado por conflictos, ideas revolucionarias y la participación de importantes figuras históricas.</p>
+    </div>
+
+    <!-- IMAGE SLOT 1 -->
+<div id="slot-1">
+    <span class="frase-historica">"Un pueblo que ama su libertad, al final la consigue"</span>
+    <img src="simon_bolivar.jpg" alt="Independencia" class="imagen-historica">
+</div>
+
+    <!-- ANTECEDENTES -->
+    <div class="doc-section">
+      <h2 class="section-heading">Antecedentes</h2>
+      <p>Uno de los antecedentes más importantes fue la influencia de las ideas ilustradas, que promovían la libertad y la igualdad. Además, la invasión de España por parte de Napoleón Bonaparte en 1808 debilitó el control sobre las colonias, creando una oportunidad para los movimientos independentistas.</p>
+    </div>
+
+    <div class="sec-divider"><span>✦</span></div>
+
+    <!-- EL GRITO -->
+    <div class="doc-section">
+      <h2 class="section-heading">El Grito de Independencia · 20 de julio de 1810</h2>
+      <p>El proceso inició el 20 de julio de 1810 en Santa Fe de Bogotá, con un levantamiento popular conocido como el "Grito de Independencia". En este hecho tuvo un papel importante José Acevedo y Gómez, quien motivó al pueblo a rebelarse contra las autoridades españolas.</p>
+      <p>Después de este acontecimiento comenzó el periodo conocido como La Patria Boba (1810–1816), caracterizado por conflictos internos entre los criollos. Durante esta etapa, líderes como Camilo Torres Tenorio defendían ideas de autonomía, mientras que Antonio Nariño impulsaba un gobierno más centralista. Estas divisiones debilitaron el proceso independentista.</p>
+    </div>
+
+    <!-- IMAGE SLOT 2 -->
+ <div id="slot-2">
+    <span class="frase-historica">"¡Si perdéis estos momentos de efervescencia y calor...!"</span>
+    <img src="florero.jfif" alt="Florero de Llorente" class="imagen-historica">
+</div>
+
+    <!-- RECONQUISTA -->
+    <div class="doc-section">
+      <h2 class="section-heading">El Régimen del Terror · 1816</h2>
+      <p>En 1816, España envió tropas para recuperar el control bajo el mando de Pablo Morillo, dando inicio a un periodo de fuerte represión conocido como el "Régimen del Terror". Durante este tiempo, muchos patriotas fueron perseguidos y ejecutados. Entre las figuras más recordadas está Policarpa Salavarrieta, quien actuó como espía y se convirtió en símbolo de resistencia tras su ejecución.</p>
+    </div>
+
+    <div class="sec-divider"><span>✦</span></div>
+
+    <!-- LÍDERES -->
+    <div class="doc-section">
+      <h2 class="section-heading">Los Líderes de la Libertad</h2>
+      <p>A pesar de la represión, la lucha continuó gracias a líderes como Simón Bolívar, conocido como "El Libertador", quien organizó campañas militares para liberar el territorio. Junto a él participaron figuras clave como Francisco de Paula Santander, quien ayudó en la organización política y militar, y Antonio José de Sucre, destacado general en las batallas.</p>
+      <p>También fue importante la participación de Manuela Sáenz, quien apoyó activamente la causa independentista y colaboró con Bolívar en momentos clave.</p>
+    </div>
+
+    <!-- IMAGE SLOT 3 -->
+<div id="slot-3">
+    <span class="frase-historica">"El arte de vencer se aprende en las derrotas"</span>
+    <img src="descarga.jfif" alt="Simón Bolívar" class="imagen-historica">
+</div>
+
+    <!-- BOYACÁ -->
+    <div class="doc-section">
+      <h2 class="section-heading">Batalla de Boyacá · 7 de agosto de 1819</h2>
+      <p>El momento decisivo ocurrió el 7 de agosto de 1819, con la Batalla de Boyacá, donde el ejército patriota logró derrotar a las fuerzas españolas. Esta victoria aseguró la independencia de la Nueva Granada.</p>
+    </div>
+
+    <div class="sec-divider"><span>✦</span></div>
+
+    <!-- GRAN COLOMBIA -->
+    <div class="doc-section">
+      <h2 class="section-heading">La Gran Colombia</h2>
+      <p>Posteriormente, se creó la Gran Colombia, una nación que unía a varios territorios del norte de Sudamérica. Aunque esta unión no duró mucho tiempo, fue un paso fundamental en la construcción de países independientes.</p>
+    </div>
+
+    <!-- IMAGE SLOT 4 -->
+<div id="slot-4">
+    <span class="frase-historica">"¡Soldados! La libertad de América reside en vuestras bayonetas"</span>
+    <img src="batalla-de-boyaca.webp" alt="Batalla de Boyacá" class="imagen-historica">
+</div>
+
+    <!-- CONCLUSIÓN -->
+    <div class="doc-section">
+      <h2 class="section-heading">Conclusión</h2>
+      <p>La independencia de Colombia fue un proceso lleno de dificultades, luchas internas y enfrentamientos contra el dominio español. Gracias al esfuerzo de múltiples líderes y personajes históricos, se logró la libertad y el inicio de Colombia como una nación soberana.</p>
+    </div>
+
+    <!-- ══ BOTTOM BUTTON ══ -->
+    <div class="bottom-bar">
+      <div class="ornament-row-sm" style="margin: 0 auto 36px;"><span>✦</span></div>
+    </a> <a class="btn-questions" href="preguntas_independecia.html"> Preguntas </a> </a>
+      <p class="bottom-note">Evalúa lo aprendido en esta sección</p>
+    </div>
+
+  </div><!-- end doc-body -->
+</div><!-- end parchment -->
+</div><!-- end scroll-wrap -->
+
+<script>
+function loadImg(input, slotId, innerId, changeId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const inner = document.getElementById(innerId);
+    inner.classList.add('has-img');
+    inner.innerHTML = '<img src="' + e.target.result + '" alt="">';
+
+    const changeBtn = document.getElementById(changeId);
+    changeBtn.style.display = 'block';
+    changeBtn.querySelector('input').onchange = function() { loadImg(this, slotId, innerId, changeId); };
+
+    const cap = document.getElementById('cap-' + slotId.split('-')[1]);
+    cap.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+<div id="pergamino" style="display: none; text-align: center; padding: 20px; border: 2px solid #8B4513; background-color: #f4e4bc;">
+    <h2>Resultados</h2>
+    <h3 id="texto-escritura"></h3>
+    <button onclick="window.location.href='Apartados.html'">Volver al Inicio</button>
+</div>
+</script>
+</body>
+</html>

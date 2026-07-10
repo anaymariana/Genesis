@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GENESIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment-light: #f0e6c8;
+    --parchment-mid: #d4b896;
+    --parchment-dark: #b8935a;
+    --earth-sand: #c9a87c;
+    --earth-terra: #8b4a2f;
+    --earth-brown: #5c3317;
+    --purple-deep: #3d1a4f;
+    --purple-wine: #6b2d5e;
+    --purple-plum: #4a1942;
+    --ink-dark: #1a0e0a;
+    --gold-accent: #c9973a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--purple-deep);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  .parchment {
+    position: relative;
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(90,50,20,.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(60,20,60,.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(210,170,110,.08) 0%, transparent 70%),
+      linear-gradient(160deg, #e8d9b0 0%, #d4bf8e 20%, #c9a87c 45%, #d6bf90 65%, #e0cfa0 85%, #c8b070 100%);
+    overflow: hidden;
+  }
+
+  .parchment::before {
+    content:'';
+    position: absolute; inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: .09;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .parchment::after {
+    content:'';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 100% 100% at 50% 50%,
+        transparent 50%,
+        rgba(40,15,5,.28) 75%,
+        rgba(20,5,2,.65) 92%,
+        rgba(10,3,1,.85) 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .corner-burn {
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,3,1,.8) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 3;
+  }
+  .corner-burn.tl { top:-80px; left:-80px; }
+  .corner-burn.tr { top:-80px; right:-80px; }
+  .corner-burn.bl { bottom:-80px; left:-80px; }
+  .corner-burn.br { bottom:-80px; right:-80px; }
+
+  .stain {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .stain-1 { width:340px; height:220px; top:8%; left:-5%; background: radial-gradient(ellipse, rgba(70,30,10,.12) 0%, transparent 70%); transform: rotate(-20deg); }
+  .stain-2 { width:280px; height:180px; bottom:15%; right:-4%; background: radial-gradient(ellipse, rgba(60,20,50,.10) 0%, transparent 70%); transform: rotate(15deg); }
+  .stain-3 { width:180px; height:120px; top:45%; left:10%; background: radial-gradient(ellipse, rgba(90,40,10,.09) 0%, transparent 70%); }
+
+  .deco-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(90,40,10,.35) 20%, rgba(90,40,10,.55) 50%, rgba(90,40,10,.35) 80%, transparent 100%);
+    pointer-events: none;
+    z-index: 4;
+  }
+
+  .content {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+  }
+
+  .header-ornament {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: fadeDown .9s ease .2s forwards;
+  }
+
+  .ornament-line {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+  }
+
+  .ornament-icon {
+    font-size: 22px;
+    color: var(--gold-accent);
+    text-shadow: 0 0 12px rgba(201,151,58,.5);
+  }
+
+  .title-wrap {
+    text-align: center;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeDown .9s ease .4s forwards;
+  }
+
+  .subtitle-latin {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--earth-terra);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: .85;
+  }
+
+  h1.genesis {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 900;
+    font-size: clamp(52px, 9vw, 110px);
+    color: var(--purple-deep);
+    line-height: 1;
+    letter-spacing: 10px;
+    text-shadow:
+      2px 2px 0 rgba(255,240,200,.6),
+      -1px -1px 0 rgba(40,10,5,.25),
+      0 4px 20px rgba(40,10,5,.18),
+      0 0 60px rgba(107,45,94,.08);
+    position: relative;
+  }
+
+  h1.genesis::after {
+    content: 'GENESIS';
+    position: absolute;
+    inset: 0;
+    color: transparent;
+    background: linear-gradient(180deg, var(--purple-deep) 0%, var(--purple-wine) 50%, var(--purple-plum) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    z-index: -1;
+  }
+
+  .title-roman {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--earth-brown);
+    opacity: .7;
+    margin-top: 8px;
+  }
+
+  .gold-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 22px 0;
+    opacity: 0;
+    animation: fadeIn .8s ease .65s forwards;
+  }
+
+  .gold-divider .line-seg {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-accent));
+    width: 80px;
+  }
+  .gold-divider .line-seg.r {
+    background: linear-gradient(90deg, var(--gold-accent), transparent);
+  }
+  .gold-divider .diamond {
+    width: 8px; height: 8px;
+    background: var(--gold-accent);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px rgba(201,151,58,.6);
+  }
+  .gold-divider .sm-diamond {
+    width: 4px; height: 4px;
+    background: var(--gold-accent);
+    transform: rotate(45deg);
+    opacity: .6;
+  }
+
+  .tagline {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--earth-brown);
+    letter-spacing: 1px;
+    text-align: center;
+    max-width: 420px;
+    line-height: 1.8;
+    margin-bottom: 38px;
+    opacity: 0;
+    animation: fadeIn .8s ease .8s forwards;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp .9s ease .95s forwards;
+  }
+
+  .btn {
+  font-family: 'Cinzel', serif;
+  font-size: 13px; /* Le subí 1px para que se lea mejor */
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 14px 38px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .35s ease;
+  text-decoration: none; /* ¡Esto quita la raya! */
+  display: inline-block; /* Ajuste para que se comporte bien como enlace-botón */
+  position: relative;
+  overflow: hidden;
+  border: none;
+}
+
+.btn-primary {
+  /* Un degradado un poco más vivo para que el botón resalte sobre el fondo */
+  background: linear-gradient(135deg, var(--purple-wine), var(--purple-plum), #5a1c4b);
+  color: #fff8e7 !important; /* Fuerza a que el texto sea color crema claro y visible */
+  box-shadow:
+    0 4px 20px rgba(60,20,60,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  border: 1px solid var(--gold-accent); /* Borde dorado para que resalte más */
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #7d3470, var(--purple-wine), var(--purple-deep));
+  color: #ffffff !important;
+  box-shadow:
+    0 6px 28px rgba(107,45,94,0.6),
+    0 0 20px rgba(201,151,58,0.4); /* Brillo dorado al pasar el cursor */
+  transform: translateY(-3px);
+  border-color: #ffffff;
+}
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--earth-brown);
+    border: 1px solid var(--parchment-dark);
+    box-shadow:
+      0 2px 12px rgba(90,40,10,.12),
+      inset 0 1px 0 rgba(255,255,255,.3);
+  }
+  .btn-secondary:hover {
+    background: rgba(90,40,10,.08);
+    border-color: var(--gold-accent);
+    color: var(--earth-terra);
+    box-shadow:
+      0 4px 18px rgba(90,40,10,.2),
+      inset 0 1px 0 rgba(255,255,255,.25);
+    transform: translateY(-2px);
+  }
+
+  /* ── FLOATING PHOTOS — con margen separado del borde ── */
+  .photos-layer {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .photo-card {
+    position: absolute;
+    background: var(--parchment-light);
+    padding: 8px 8px 28px;
+    box-shadow:
+      2px 4px 20px rgba(20,5,2,.35),
+      0 0 0 1px rgba(90,40,10,.15);
+    overflow: hidden;
+  }
+
+  .photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: sepia(.55) contrast(1.05) brightness(.95);
+  }
+
+  .photo-card::after {
+    content:'';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at top left, rgba(20,5,2,.2) 0%, transparent 40%),
+      radial-gradient(ellipse at bottom right, rgba(20,5,2,.18) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 7px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 9px;
+    color: rgba(70,30,10,.65);
+    letter-spacing: .5px;
+  }
+
+  /* Posiciones con margen mínimo de ~3-4% del borde */
+  .p1 { width:280px; height:205px; top:4%;    left:3%;   transform: rotate(-4deg);   animation: floatIn .9s ease .3s  both; }
+  .p2 { width:240px; height:285px; top:4%;    right:3%;  transform: rotate(3.5deg);  animation: floatIn .9s ease .5s  both; }
+  .p3 { width:265px; height:185px; bottom:4%; left:3%;   transform: rotate(2deg);    animation: floatIn .9s ease .6s  both; }
+  .p4 { width:225px; height:265px; bottom:4%; right:3%;  transform: rotate(-3deg);   animation: floatIn .9s ease .45s both; }
+  .p5 { width:245px; height:178px; top:44%;   left:3%;   transform: rotate(3deg);    animation: floatIn .9s ease .7s  both; }
+  .p6 { width:232px; height:260px; top:36%;   right:3%;  transform: rotate(-4.5deg); animation: floatIn .9s ease .55s both; }
+  .p7 { width:215px; height:248px; bottom:4%; left:22%;  transform: rotate(-5deg);   animation: floatIn .9s ease .8s  both; }
+
+  .scroll-seal {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn .8s ease 1.2s forwards;
+  }
+
+  .seal-circle {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(90,40,10,.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow:
+      0 2px 10px rgba(60,20,10,.15),
+      inset 0 1px 0 rgba(255,255,255,.3);
+    background: radial-gradient(circle, rgba(201,151,58,.12), transparent);
+  }
+
+  .seal-inner {
+    font-size: 20px;
+    opacity: .7;
+  }
+
+  .scroll-text {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--earth-brown);
+    opacity: .5;
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes floatIn {
+    from { opacity: 0; transform: scale(.88) rotate(var(--r, 0deg)); filter: blur(4px); }
+    to   { opacity: 1; filter: blur(0); }
+  }
+
+  .p1 { --r: -4deg; }
+  .p2 { --r: 3.5deg; }
+  .p3 { --r: 2deg; }
+  .p4 { --r: -3deg; }
+  .p5 { --r: 2.5deg; }
+  .p6 { --r: -4deg; }
+  .p7 { --r: -5deg; }
+
+  @media (max-width: 640px) {
+    .p5, .p6, .p7 { display: none; }
+    .p1 { width: 155px; height: 115px; left: 3%; top: 4%; }
+    .p2 { width: 135px; height: 170px; right: 3%; top: 4%; }
+    .p3 { width: 140px; height: 100px; left: 3%; bottom: 4%; }
+    .p4 { width: 130px; height: 155px; right: 3%; bottom: 4%; }
+    h1.genesis { font-size: clamp(42px, 12vw, 75px); letter-spacing: 6px; }
+    .btn-group { gap: 14px; }
+    .btn { padding: 13px 28px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="parchment">
+
+  <div class="corner-burn tl"></div>
+  <div class="corner-burn tr"></div>
+  <div class="corner-burn bl"></div>
+  <div class="corner-burn br"></div>
+
+  <div class="stain stain-1"></div>
+  <div class="stain stain-2"></div>
+  <div class="stain stain-3"></div>
+
+  <div class="deco-line" style="top:8%;left:0;right:0;opacity:.18"></div>
+  <div class="deco-line" style="bottom:8%;left:0;right:0;opacity:.18"></div>
+
+  <div class="photos-layer">
+
+    <div class="photo-card p1">
+      <img src="imagen 1.jfif" alt="Colosseo">
+      <span class="photo-caption"> </span>
+    </div>
+
+    <div class="photo-card p2">
+      <img src="imagen 2.jfif" alt="Acropolis">
+      <span class="photo-caption">.</span>
+    </div>
+
+    <div class="photo-card p3">
+      <img src="imagen 3.jfif" alt="Pirámides">
+      <span class="photo-caption"></span>
+    </div>
+
+    <div class="photo-card p4">
+      <img src="imagen 5.jfif" alt="Machu Picchu">
+      <span class="photo-caption"> </span>
+    </div>
+
+    <div class="photo-card p5">
+      <img src="imagen_frente.jfif" alt="Stonehenge">
+      <span class="photo-caption"></span>
+    </div>
+
+    <div class="photo-card p6">
+      <img src="imagen 6.jfif" alt="Angkor Wat">
+      <span class="photo-caption"></span>
+    </div>
+
+    <div class="photo-card p7">
+      <img src="descarga.jfif" alt="Parthenon">
+      <span class="photo-caption"></span>
+    </div>
+
+  </div>
+
+  <div class="content">
+
+    <div class="header-ornament">
+      <div class="ornament-line"></div>
+      <span class="ornament-icon">✦</span>
+      <div class="ornament-line" style="background:linear-gradient(90deg,var(--gold-accent),transparent)"></div>
+    </div>
+
+    <div class="title-wrap">
+      <p class="subtitle-latin">In principio erat verbum</p>
+      <h1 class="genesis">GENESIS</h1>
+      <p class="title-roman">· Anno Domini MMXXVI ·</p>
+    </div>
+
+    <div class="gold-divider">
+      <div class="sm-diamond"></div>
+      <div class="line-seg"></div>
+      <div class="diamond"></div>
+      <div class="line-seg r"></div>
+      <div class="sm-diamond"></div>
+    </div>
+
+    <p class="tagline">
+      El principio de todo lo que fue, es,<br>
+      y ha de ser escrito.<br>
+      <em>Bienvenido al origen.</em>
+    </p>
+
+<div class="btn-group">
+  <a href="Iniciar.html" class="btn btn-primary btn-questions">
+    Empezar
+  </a>
+</div>
+    <div class="scroll-seal">
+      <div class="seal-circle">
+        <span class="seal-inner">⚜</span>
+      </div>
+      <span class="scroll-text">Sigillum Veritatis</span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

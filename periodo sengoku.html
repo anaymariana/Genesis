@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Periodo Sengoku — Génesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:         #12100e;
+  --ink-mid:     #2a1f14;
+  --ink-soft:    #4a3520;
+  --red:         #7a1515;
+  --red-mid:     #a82020;
+  --red-pale:    #d4807a;
+  --gold:        #9a7010;
+  --gold-light:  #c49030;
+  --paper:       #e8dfc8;
+  --sepia:       #7a5c30;
+  --cream:       #f5ede0;
+  --shadow:      rgba(18,16,14,0.38);
+}
+
+html { scroll-behavior: smooth; }
+
+/* ══ BODY — washi paper base ══ */
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--ink);
+  background-color: #b8a070;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' seed='12' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.38 0 0 0 0 0.28 0 0 0 0 0.12 0 0 0 0.20 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 120% 80% at 15% 5%,  rgba(190,155,80,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 85% 95%, rgba(140,100,40,0.4)  0%, transparent 55%),
+    radial-gradient(ellipse 80%  60% at 50% 50%, rgba(210,185,120,0.4) 0%, transparent 60%),
+    linear-gradient(160deg, #d8c888 0%, #c8b06a 35%, #b89850 65%, #a88840 100%);
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 80% at 0%   0%,   rgba(90,20,20,0.18) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 100% 0%,   rgba(60,35,10,0.22) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 0%   100%, rgba(60,35,10,0.25) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 100% 100%, rgba(90,20,20,0.18) 0%, transparent 40%);
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* ══ KANJI WATERMARK ══ */
+.kanji-bg {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 420px;
+  font-weight: 700;
+  color: rgba(122, 21, 21, 0.04);
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+  user-select: none;
+  writing-mode: vertical-rl;
+  letter-spacing: -0.1em;
+}
+
+/* ══ TOP BAR ══ */
+.top-bar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 32px;
+  background: rgba(185,155,85,0.65);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(122,21,21,0.20);
+}
+.btn-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--ink-mid);
+  text-decoration: none;
+  background: none; border: 1px solid rgba(100,60,20,0.35);
+  padding: 7px 16px; border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn-back:hover {
+  background: rgba(122,21,21,0.08);
+  border-color: var(--gold); color: var(--red);
+}
+.btn-back::before { content: '←'; font-size: 14px; }
+
+.top-project {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 18px;
+  color: var(--red); opacity: 0.7;
+}
+
+.top-kanji {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 22px;
+  color: var(--red);
+  opacity: 0.45;
+  letter-spacing: 0.1em;
+}
+
+/* ══ SCROLL WRAPPER ══ */
+.scroll-wrap {
+  position: relative; z-index: 1;
+  max-width: 800px;
+  margin: 48px auto 80px;
+  padding: 0 24px;
+}
+
+/* ══ PARCHMENT SCROLL ══ */
+.parchment {
+  position: relative;
+  background-color: #f0e5cc;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.52 0 0 0 0 0.40 0 0 0 0 0.20 0 0 0 0.10 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(180deg, transparent 0px, transparent 2px, rgba(80,50,10,0.015) 2px, rgba(80,50,10,0.015) 3px),
+    radial-gradient(ellipse 110% 60% at 50% 10%, rgba(255,248,220,0.7) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 10% 90%,  rgba(160,120,55,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 90% 80%,  rgba(160,120,55,0.18) 0%, transparent 50%),
+    linear-gradient(175deg, #f8f0d8 0%, #ede3b8 30%, #e2d398 60%, #d8c888 100%);
+  border-radius: 2px;
+  box-shadow:
+    0 8px 40px rgba(30,18,8,0.32),
+    0 2px 8px  rgba(30,18,8,0.18),
+    inset 0 0 0 1px rgba(80,50,10,0.12);
+  padding: 60px 64px 72px;
+
+  /* Red brushstroke left border */
+  border-left: 5px solid transparent;
+  border-image: linear-gradient(to bottom, transparent 5%, var(--red) 20%, var(--red-mid) 50%, var(--red) 80%, transparent 95%) 1;
+}
+
+.parchment::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 18px;
+  background: linear-gradient(to bottom, rgba(80,50,10,0.10) 0%, transparent 100%);
+  border-radius: 2px 2px 0 0;
+}
+.parchment::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 18px;
+  background: linear-gradient(to top, rgba(80,50,10,0.10) 0%, transparent 100%);
+  border-radius: 0 0 2px 2px;
+}
+
+/* Ink stains */
+.p-stain {
+  position: absolute; border-radius: 50%; pointer-events: none;
+}
+
+/* ══ ORNAMENTAL HEADER ══ */
+.doc-header { text-align: center; margin-bottom: 44px; }
+
+.doc-eyebrow {
+  font-size: 10px; letter-spacing: 0.65em; text-transform: uppercase;
+  color: var(--red-mid); margin-bottom: 14px; display: block;
+}
+
+.header-kanji {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--red);
+  opacity: 0.18;
+  display: block;
+  letter-spacing: 0.15em;
+  margin-bottom: 4px;
+}
+
+.ornament-row {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  margin: 0 auto 16px; max-width: 340px;
+}
+.ornament-row::before, .ornament-row::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.ornament-sym { color: var(--gold); font-size: 13px; letter-spacing: 0.2em; }
+
+.doc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700; line-height: 1.1;
+  color: var(--red);
+  text-shadow: 1px 1px 0 rgba(80,50,10,0.12);
+}
+
+.doc-subtitle {
+  font-family: 'IM Fell English', serif;
+  font-style: italic; font-size: 15px;
+  color: var(--ink-soft); margin-top: 10px;
+}
+
+.ornament-row-sm {
+  display: flex; align-items: center; gap: 10px;
+  max-width: 220px; margin: 18px auto 0;
+}
+.ornament-row-sm::before, .ornament-row-sm::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(154,112,16,0.5), transparent);
+}
+.ornament-row-sm span { font-size: 10px; color: var(--gold); opacity: 0.7; }
+
+/* ══ BODY TEXT ══ */
+.doc-body { position: relative; z-index: 1; }
+.doc-section { margin-bottom: 36px; }
+
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--red);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(154,112,16,0.35);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-heading::before {
+  content: '刀';
+  font-family: 'Noto Serif JP', serif;
+  font-size: 13px; color: var(--gold); opacity: 0.6;
+}
+
+p {
+  font-family: 'IM Fell English', serif;
+  font-size: 17px; line-height: 1.9;
+  color: var(--ink-mid);
+  margin-bottom: 18px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* Drop cap */
+.drop-cap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px; font-weight: 700;
+  float: left;
+  line-height: 0.75;
+  margin: 6px 10px 0 0;
+  color: var(--red);
+  padding: 0 2px;
+}
+
+/* ══ QUOTE BLOCK ══ */
+.frase-historica {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--red);
+  text-align: center;
+  margin: 28px auto 10px;
+  padding: 14px 28px;
+  max-width: 580px;
+  border-top: 1px solid rgba(122,21,21,0.25);
+  border-bottom: 1px solid rgba(122,21,21,0.25);
+  position: relative;
+}
+.frase-historica::before {
+  content: '「';
+  font-family: 'Noto Serif JP', serif;
+  font-style: normal;
+  font-size: 1.6rem;
+  color: var(--gold);
+  opacity: 0.6;
+  position: absolute;
+  left: 6px; top: 8px;
+}
+.frase-historica::after {
+  content: '」';
+  font-family: 'Noto Serif JP', serif;
+  font-style: normal;
+  font-size: 1.6rem;
+  color: var(--gold);
+  opacity: 0.6;
+  position: absolute;
+  right: 6px; bottom: 8px;
+}
+/* ══ LEADERS LIST ══ */
+.leaders-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+}
+.leaders-list li {
+  font-family: 'IM Fell English', serif;
+  font-size: 17px; line-height: 1.85;
+  color: var(--ink-mid);
+  margin-bottom: 14px;
+  padding-left: 28px;
+  position: relative;
+  text-align: justify;
+}
+.leaders-list li::before {
+  content: '⚔';
+  position: absolute; left: 0; top: 2px;
+  font-size: 13px;
+  color: var(--red); opacity: 0.65;
+}
+.leaders-list li strong {
+  font-family: 'Playfair Display', serif;
+  color: var(--red);
+  font-weight: 700;
+}
+
+/* ══ SECTION DIVIDER ══ */
+.sec-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 40px 0 36px;
+  color: var(--gold);
+}
+.sec-divider::before, .sec-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(154,112,16,0.45), transparent);
+}
+.sec-divider span { font-size: 14px; opacity: 0.6; }
+.sec-divider-kanji {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  color: var(--gold);
+  opacity: 0.5;
+}
+
+/* ══ BOTTOM BUTTON ══ */
+.bottom-bar {
+  text-align: center;
+  margin-top: 52px; padding-top: 40px;
+  border-top: 1px solid rgba(80,50,10,0.25);
+  position: relative; z-index: 1;
+}
+.btn-questions {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px; letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--cream);
+  background: var(--red);
+  border: 1px solid rgba(168,32,32,0.6);
+  padding: 14px 32px; border-radius: 2px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.25s, box-shadow 0.25s;
+  box-shadow: 0 2px 12px rgba(122,21,21,0.3);
+}
+.btn-questions:hover {
+  background: var(--red-mid);
+  box-shadow: 0 4px 20px rgba(122,21,21,0.45);
+}
+.btn-questions::after { content: '→'; font-size: 15px; }
+
+.bottom-note {
+  font-family: 'IM Fell English', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--sepia); margin-top: 14px; opacity: 0.75;
+}
+
+/* ══ FADE-IN ANIMATION ══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.doc-section, .img-slot, .frase-historica {
+  animation: fadeUp 0.7s ease both;
+}
+.doc-section:nth-child(2)  { animation-delay: 0.08s; }
+.doc-section:nth-child(3)  { animation-delay: 0.14s; }
+.doc-section:nth-child(4)  { animation-delay: 0.20s; }
+.doc-section:nth-child(5)  { animation-delay: 0.26s; }
+.doc-section:nth-child(6)  { animation-delay: 0.32s; }
+
+@media (max-width: 640px) {
+  .parchment { padding: 36px 22px 48px; border-left-width: 3px; }
+  .top-bar { padding: 10px 16px; }
+  .top-project { display: none; }
+  .header-kanji { font-size: 36px; }
+}
+.imagen-historica {
+    width: 100% !important;
+    max-width: 500px !important;
+    max-height: 400px !important; 
+    object-fit: contain !important; /* Muestra a Bolívar completo sin cortes */
+    display: block !important;
+    margin: 20px auto !important;
+    border: 3px solid #a07520 !important;
+    border-radius: 12px !important;
+    transition: all 0.4s ease !important;
+    cursor: pointer !important;
+    background-color: transparent !important;
+}
+
+/* El Brillo Amarillo (Hover) */
+.imagen-historica:hover {
+    transform: scale(1.05) !important;
+    filter: drop-shadow(0 0 25px #ffd700) brightness(1.1) !important;
+    border-color: #ffd700 !important;
+}
+
+/* Estilo para las frases */
+.frase-historica {
+    font-family: 'Dancing Script', cursive !important;
+    font-size: 1.6rem !important;
+    color: #4a3728 !important;
+    text-align: center !important;
+    display: block !important;
+    margin: 25px auto 5px auto !important;
+}
+.imagen-historica {
+    width: 100%;
+    max-height: 400px; /* Altura máxima para que no ocupe toda la pantalla */
+    object-fit: contain; /* ¡Aquí está el truco! Muestra la imagen completa */
+    background-color: rgba(0,0,0,0.05); /* Un fondo suave por si la imagen es pequeña */
+    display: block;
+    margin: 10px auto;
+    border: 2px solid #b8860b;
+    border-radius: 5px;
+}
+
+/* Estilo para las frases en cursiva */
+.frase-historica {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: #5d4037;
+    text-align: center;
+    display: block;
+    margin-bottom: 5px;
+    padding: 0 10px;
+}
+</style>
+</head>
+<body>
+
+<!-- Kanji watermark -->
+<div class="kanji-bg">戦国</div>
+
+<!-- ══ TOP BAR ══ -->
+<div class="top-bar">
+  <a class="btn-back" href="Apartados.html">Volver</a>
+  <span class="top-project">Génesis</span>
+  <span class="top-kanji">戦国時代</span>
+</div>
+
+<!-- ══ SCROLL WRAPPER ══ -->
+<div class="scroll-wrap">
+<div class="parchment">
+
+  <!-- Aged stains -->
+  <div class="p-stain" style="width:210px;height:170px;top:-30px;right:-45px;background:radial-gradient(ellipse,rgba(80,50,10,0.07) 0%,transparent 70%);"></div>
+  <div class="p-stain" style="width:140px;height:110px;bottom:90px;left:-25px;background:radial-gradient(ellipse,rgba(122,21,21,0.04) 0%,transparent 70%);"></div>
+  <div class="p-stain" style="width:80px;height:80px;top:42%;right:6%;background:radial-gradient(ellipse,rgba(100,60,20,0.04) 0%,transparent 70%);"></div>
+
+  <!-- ══ DOCUMENT HEADER ══ -->
+  <div class="doc-header">
+    <span class="doc-eyebrow">Historia de Japón · Génesis</span>
+    <span class="header-kanji">戦国時代</span>
+    <div class="ornament-row"><span class="ornament-sym">✦ ✦ ✦</span></div>
+    <h1 class="doc-title">Periodo Sengoku</h1>
+    <p class="doc-subtitle">La Era de los Estados en Guerra · 1467–1615</p>
+    <div class="ornament-row-sm"><span>✦</span></div>
+  </div>
+
+  <!-- ══ BODY ══ -->
+  <div class="doc-body">
+
+    <!-- INTRO -->
+    <div class="doc-section">
+      <p class="drop-cap">El periodo Sengoku (1467–1615), conocido como la "Era de los Estados en Guerra", fue una de las épocas más convulsas, violentas y fascinantes de la historia de Japón. Fue un tiempo de fragmentación política absoluta donde el poder central desapareció y los señores feudales lucharon entre sí por el control total del archipiélago.</p>
+    </div>
+
+    <span class="frase-historica">El mundo está en un caos constante; el fuerte devora al débil</span>
+
+    <!-- ANTECEDENTES -->
+    <div class="doc-section">
+      <h2 class="section-heading">Antecedentes</h2>
+      <p>El detonante fue la Guerra de Onin (1467), una disputa sucesoria dentro del shogunato Ashikaga que destruyó Kioto. Este conflicto reveló la debilidad del Shogun y dio paso al concepto de <em>Gekokujo</em> ("los de abajo dominan a los de arriba"), donde vasallos locales derrocaron a sus señores, fragmentando a Japón en cientos de pequeños dominios rivales.</p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-slot">
+     <img src="guerra de onin.jfif" class="imagen-historica" alt="Guerra de Onin">
+    </div>
+
+    <div class="sec-divider"><span class="sec-divider-kanji">✦</span></div>
+
+    <!-- DAIMYO -->
+    <div class="doc-section">
+      <h2 class="section-heading">El Ascenso de los Daimyo · Siglo XVI</h2>
+      <p>Durante esta era, los <em>Daimyo</em> (señores de la guerra) construyeron imponentes castillos de piedra y formaron ejércitos profesionales de samuráis y campesinos soldados (<em>ashigaru</em>). La guerra cambió para siempre en 1543 con la llegada de los portugueses, quienes introdujeron el arcabuz (arma de fuego), transformando las tácticas de carga de caballería en combates de infantería a distancia.</p>
+    </div>
+
+    <span class="frase-historica">Bajo la espada en alto, está el infierno esperándote; pero sigue adelante y encontrarás la tierra prometida</span>
+
+    <!-- IMAGE 2 -->
+    <div class="img-slot">
+      <img src="daimayo.jfif" class="imagen-historica" alt="Daimyo">
+    </div>
+
+    <!-- TRES UNIFICADORES -->
+    <div class="doc-section">
+      <h2 class="section-heading">Los Tres Grandes Unificadores</h2>
+      <p>El caos comenzó a ceder ante la aparición de tres figuras legendarias que, sucesivamente, lograron lo que parecía imposible: unir a Japón bajo un solo mando.</p>
+
+      <ul class="leaders-list">
+        <li><strong>Oda Nobunaga:</strong> El innovador brutal. Fue el primero en usar armas de fuego de forma masiva (Batalla de Nagashino). Conquistó el centro de Japón y eliminó la influencia política de los monasterios budistas armados. Fue traicionado y se suicidó en el Incidente de Honno-ji.</li>
+        <li><strong>Toyotomi Hideyoshi:</strong> El "Gran Pacificador". De origen humilde (campesino), ascendió hasta ser el general más confiable de Nobunaga. Unificó Japón mediante la diplomacia y la fuerza, prohibió que los campesinos portaran armas y realizó un catastro nacional.</li>
+        <li><strong>Tokugawa Ieyasu:</strong> El estratega paciente. Tras la muerte de Hideyoshi, esperó su momento para reclamar el poder absoluto.</li>
+      </ul>
+    </div>
+
+    <span class="frase-historica">Si el pájaro no canta, Nobunaga lo mata; Hideyoshi lo obliga a cantar; Ieyasu espera a que cante</span>
+
+    <!-- IMAGE 3 -->
+    <div class="img-slot">
+     <img src="unificadores.jfif" class="imagen-historica" alt="unificadores">
+    </div>
+
+    <div class="sec-divider"><span class="sec-divider-kanji">✦</span></div>
+
+    <!-- SEKIGAHARA -->
+    <div class="doc-section">
+      <h2 class="section-heading">La Batalla de Sekigahara · 21 de octubre de 1600</h2>
+      <p>El momento decisivo ocurrió en Sekigahara, conocida como la "Batalla que dividió el reino". El Ejército del Este (liderado por Ieyasu) se enfrentó al Ejército del Oeste (leales al heredero de Hideyoshi). Gracias a traiciones internas y una disciplina férrea, Ieyasu obtuvo una victoria aplastante.</p>
+    </div>
+
+    <!-- SHOGUNATO -->
+    <div class="doc-section">
+      <h2 class="section-heading">El Establecimiento del Shogunato · 1603–1615</h2>
+      <p>En 1603, el Emperador nombró a Ieyasu como Shogun, estableciendo el Shogunato Tokugawa en Edo (actual Tokio). El último vestigio de resistencia terminó en 1615 con el Sitio de Osaka, donde el clan Toyotomi fue aniquilado. Esto dio inicio al periodo Edo, una era de más de 250 años de paz y aislamiento casi total (<em>Sakoku</em>).</p>
+    </div>
+
+    <!-- IMAGE 4 -->
+    <div class="img-slot">
+      <img src="sekigahara.jfif" class="imagen-historica" alt="Sekigahara">
+    </div>
+
+    <span class="frase-historica">El hombre es como un viajero que camina por un largo camino con una pesada carga a sus espaldas</span>
+
+    <div class="sec-divider"><span class="sec-divider-kanji">✦</span></div>
+
+    <!-- CONCLUSIÓN -->
+    <div class="doc-section">
+      <h2 class="section-heading">Conclusión</h2>
+      <p>El periodo Sengoku fue la transición del Japón medieval al moderno. Aunque fue una época de derramamiento de sangre incesante, también fue una era de gran movilidad social y florecimiento cultural (como la ceremonia del té y el teatro Noh). La lucha de los tres unificadores permitió que Japón dejara de ser un campo de batalla para convertirse en una nación unificada y estable.</p>
+    </div>
+
+    <!-- ══ BOTTOM BUTTON ══ -->
+    <div class="bottom-bar">
+      <div class="ornament-row-sm" style="margin: 0 auto 36px;"><span>✦</span></div>
+      <a class="btn-questions" href="preguntas_sengoku.html">Preguntas</a>
+      <p class="bottom-note">Evalúa lo aprendido en esta sección</p>
+    </div>
+
+  </div><!-- end doc-body -->
+</div><!-- end parchment -->
+</div><!-- end scroll-wrap -->
+
+</body>
+</html>

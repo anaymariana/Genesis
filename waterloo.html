@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Era Napoleónica y Waterloo — Génesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:         #1e1509;
+  --ink-mid:     #3b2a14;
+  --ink-soft:    #5c4228;
+  --purple:      #3b1f4e;
+  --purple-mid:  #6b3f8a;
+  --purple-pale: #b89fd0;
+  --gold:        #a07520;
+  --gold-light:  #c9953a;
+  --parch:       #ede0be;
+  --sepia:       #8b6840;
+  --cream:       #faf4e1;
+}
+html { scroll-behavior: smooth; }
+/* ══ BODY — parchment base ══ */
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--ink);
+  background-color: #c8b070;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.45 0 0 0 0 0.32 0 0 0 0 0.10 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 120% 80% at 10% 5%,   rgba(210,185,110,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 90% 95%, rgba(160,120,50,0.4)  0%, transparent 55%),
+    radial-gradient(ellipse 80%  60% at 50% 50%, rgba(230,210,145,0.5) 0%, transparent 60%),
+    linear-gradient(160deg, #e8d9a0 0%, #d9c580 35%, #c8af60 65%, #bba055 100%);
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 80% at 0%   0%,   rgba(70,45,10,0.28) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 100% 0%,   rgba(70,45,10,0.22) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 0%   100%, rgba(70,45,10,0.25) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 100% 100%, rgba(70,45,10,0.25) 0%, transparent 40%);
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+/* ══ TOP BAR ══ */
+.top-bar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 32px;
+  background: rgba(200,175,100,0.65);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(59,31,78,0.18);
+}
+.btn-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--ink-mid);
+  text-decoration: none;
+  background: none; border: 1px solid rgba(100,70,20,0.35);
+  padding: 7px 16px; border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn-back:hover {
+  background: rgba(59,31,78,0.08);
+  border-color: var(--gold); color: var(--purple);
+}
+.btn-back::before { content: '←'; font-size: 14px; }
+.top-project {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 18px;
+  color: var(--purple); opacity: 0.7;
+}
+/* ══ SCROLL WRAPPER ══ */
+.scroll-wrap {
+  position: relative; z-index: 1;
+  max-width: 800px;
+  margin: 48px auto 80px;
+  padding: 0 24px;
+}
+/* ══ PARCHMENT SCROLL ══ */
+.parchment {
+  position: relative;
+  background-color: #f5eacc;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.55 0 0 0 0 0.42 0 0 0 0 0.22 0 0 0 0.10 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(180deg, transparent 0px, transparent 2px, rgba(100,70,20,0.018) 2px, rgba(100,70,20,0.018) 3px),
+    radial-gradient(ellipse 110% 60% at 50% 10%, rgba(255,245,210,0.7) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 10% 90%,  rgba(180,145,75,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 90% 80%,  rgba(180,145,75,0.2) 0%, transparent 50%),
+    linear-gradient(175deg, #faf3dc 0%, #f0e4b8 30%, #e8d8a0 60%, #dfd098 100%);
+  border-radius: 2px;
+  box-shadow:
+    0 8px 40px rgba(42,31,14,0.28),
+    0 2px 8px  rgba(42,31,14,0.18),
+    inset 0 0 0 1px rgba(100,70,20,0.12);
+  padding: 60px 64px 72px;
+}
+.parchment::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 18px;
+  background: linear-gradient(to bottom, rgba(100,70,20,0.10) 0%, transparent 100%);
+  border-radius: 2px 2px 0 0;
+}
+.parchment::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 18px;
+  background: linear-gradient(to top, rgba(100,70,20,0.10) 0%, transparent 100%);
+  border-radius: 0 0 2px 2px;
+}
+.p-stain {
+  position: absolute; border-radius: 50%; pointer-events: none;
+}
+/* ══ ORNAMENTAL HEADER ══ */
+.doc-header { text-align: center; margin-bottom: 44px; }
+.doc-eyebrow {
+  font-size: 10px; letter-spacing: 0.65em; text-transform: uppercase;
+  color: var(--purple-mid); margin-bottom: 14px; display: block;
+}
+.ornament-row {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  margin: 0 auto 16px; max-width: 340px;
+}
+.ornament-row::before, .ornament-row::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.ornament-sym { color: var(--gold); font-size: 13px; letter-spacing: 0.2em; }
+.doc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700; line-height: 1.1;
+  color: var(--purple);
+}
+.doc-subtitle {
+  font-family: 'IM Fell English', serif;
+  font-style: italic; font-size: 15px;
+  color: var(--ink-soft); margin-top: 10px;
+}
+.ornament-row-sm {
+  display: flex; align-items: center; gap: 10px;
+  max-width: 220px; margin: 18px auto 0;
+}
+.ornament-row-sm::before, .ornament-row-sm::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160,117,32,0.5), transparent);
+}
+.ornament-row-sm span { font-size: 10px; color: var(--gold); opacity: 0.7; }
+/* ══ BODY TEXT ══ */
+.doc-body { position: relative; z-index: 1; }
+.doc-section { margin-bottom: 36px; }
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(160,117,32,0.3);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-heading::before {
+  content: '✦';
+  font-size: 10px; color: var(--gold); opacity: 0.7;
+}
+p {
+  font-family: 'IM Fell English', serif;
+  font-size: 17px; line-height: 1.9;
+  color: var(--ink-mid);
+  margin-bottom: 18px;
+  text-align: justify;
+  hyphens: auto;
+}
+.drop-cap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px; font-weight: 700;
+  float: left;
+  line-height: 0.75;
+  margin: 6px 10px 0 0;
+  color: var(--purple);
+  padding: 0 2px;
+}
+.sec-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 40px 0 36px;
+  color: var(--gold);
+}
+.sec-divider::before, .sec-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160,117,32,0.45), transparent);
+}
+.sec-divider span { font-size: 14px; opacity: 0.6; }
+/* ══ BOTTOM BAR ══ */
+.bottom-bar {
+  text-align: center;
+  margin-top: 52px; padding-top: 40px;
+  border-top: 1px solid rgba(100,70,20,0.25);
+  position: relative; z-index: 1;
+}
+.btn-questions {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px; letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--cream);
+  background: var(--purple);
+  border: 1px solid rgba(107,63,138,0.6);
+  padding: 14px 32px; border-radius: 2px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.25s, box-shadow 0.25s;
+  box-shadow: 0 2px 12px rgba(59,31,78,0.2);
+}
+.btn-questions:hover {
+  background: var(--purple-mid);
+  box-shadow: 0 4px 20px rgba(59,31,78,0.35);
+}
+.btn-questions::after { content: '→'; font-size: 15px; }
+.bottom-note {
+  font-family: 'IM Fell English', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--sepia); margin-top: 14px; opacity: 0.75;
+}
+@media (max-width: 640px) {
+  .parchment { padding: 36px 24px 48px; }
+  .top-bar { padding: 10px 16px; }
+  .top-project { display: none; }
+}
+/* Estilo de la Imagen Histórica Brilhante */
+.imagen-historica {
+    width: 100% !important;
+    max-width: 500px !important;
+    max-height: 400px !important; 
+    object-fit: contain !important; 
+    display: block !important;
+    margin: 20px auto !important;
+    border: 3px solid #a07520 !important;
+    border-radius: 12px !important;
+    transition: all 0.4s ease !important;
+    cursor: pointer !important;
+    background-color: rgba(0,0,0,0.05) !important;
+}
+.imagen-historica:hover {
+    transform: scale(1.05) !important;
+    filter: drop-shadow(0 0 25px #ffd700) brightness(1.1) !important;
+    border-color: #ffd700 !important;
+}
+.frase-historica {
+    font-family: 'Cormorant Garamond', serif !important; /* Mantenemos consistencia o puedes usar fuentes cursivas cargadas */
+    font-style: italic !important;
+    font-size: 1.5rem !important;
+    color: #4a3728 !important;
+    text-align: center !important;
+    display: block !important;
+    margin: 25px auto 5px auto !important;
+    padding: 0 10px;
+}
+</style>
+</head>
+<body>
+<!-- ══ TOP BAR ══ -->
+<div class="top-bar">
+  <a class="btn-back" href="Apartados.html">Volver</a>
+  <span class="top-project">Génesis</span>
+</div>
+<!-- ══ SCROLL WRAPPER ══ -->
+<div class="scroll-wrap">
+<div class="parchment">
+  <!-- Aged stains on parchment -->
+  <div class="p-stain" style="width:200px;height:160px;top:-30px;right:-40px;background:radial-gradient(ellipse,rgba(100,65,20,0.07) 0%,transparent 70%);"></div>
+  <div class="p-stain" style="width:150px;height:120px;bottom:80px;left:-30px;background:radial-gradient(ellipse,rgba(59,31,78,0.05) 0%,transparent 70%);"></div>
+  <div class="p-stain" style="width:90px;height:90px;top:40%;right:5%;background:radial-gradient(ellipse,rgba(122,59,30,0.04) 0%,transparent 70%);"></div>
+  
+  <!-- ══ DOCUMENT HEADER ══ -->
+  <div class="doc-header">
+    <span class="doc-eyebrow">Historia Universal · Génesis</span>
+    <div class="ornament-row"><span class="ornament-sym">✦ ✦ ✦</span></div>
+    <h1 class="doc-title">Campañas Napoleónicas<br>y Waterloo</h1>
+    <p class="doc-subtitle">El ascenso, dominio y caída final del Imperio Francés · Siglo XIX</p>
+    <div class="ornament-row-sm"><span>✦</span></div>
+  </div>
+  
+  <!-- ══ BODY ══ -->
+  <div class="doc-body">
+    <!-- INTRO -->
+    <div class="doc-section">
+      <p class="drop-cap">La era de las Guerras Napoleónicas transformó radicalmente el orden geopolítico de Europa. Napoleón Bonaparte, combinando los principios fundamentales de la Revolución Francesa con una brillante audacia estratégica, desafió a las coaliciones absolutistas del continente mediante campañas militares masivas que marcaron una época.</p>
+    </div>
+    
+    <!-- IMAGE SLOT 1 -->
+    <div id="slot-1">
+      <span class="frase-historica">"La victoria pertenece a los más perseverantes"</span>
+      <img src="napoleon.jfif" alt="Napoleón Bonaparte" class="imagen-historica">
+    </div>
+    
+    <!-- ANTECEDENTES -->
+    <div class="doc-section">
+      <h2 class="section-heading">Grandes Batallas del Imperio</h2>
+      <p>Antes de su trágico final en las llanuras del norte, el Gran Ejército galo consolidó victorias legendarias. La Batalla de Austerlitz (1805), bautizada como la 'Batalla de los Tres Emperadores', se alza como su máxima obra maestra táctica, donde destruyó a las fuerzas austro-rusas utilizando el engaño elemental.</p>
+      <p>No obstante, la hegemonía marítima británica en Trafalgar (1805) le cerró el paso al canal de la Mancha, forzándolo a decretar un bloqueo económico continental para asfixiar a sus rivales insulares.</p>
+    </div>
+    
+    <div class="sec-divider"><span>✦</span></div>
+    
+    <!-- EL ERROR -->
+    <div class="doc-section">
+      <h2 class="section-heading">La Campaña de Rusia · 1812</h2>
+      <p>El punto de quiebre definitivo se originó con la invasión al Imperio Ruso. La rigurosa estrategia rusa de "tierra quemada", sumada al implacable invierno continental, masacró y desmoralizó a un ejército de más de 600,000 soldados, forzando una retirada trágica que marcó el principio del fin.</p>
+    </div>
+    
+    <!-- IMAGE SLOT 2 -->
+    <div id="slot-2">
+      <span class="frase-historica">"Imposible es una palabra que se encuentra solo en el diccionario de los tontos"</span>
+      <img src="retirada_rusia.jpg" alt="Retirada de Rusia" class="imagen-historica">
+    </div>
+    
+    <!-- WATERLOO -->
+    <div class="doc-section">
+      <h2 class="section-heading">La Batalla de Waterloo · 18 de junio de 1815</h2>
+      <p>Tras un breve destierro, Napoleón regresó triunfal durante el período histórico conocido como los "Cien Días". En respuesta, las potencias europeas reaccionaron con presteza estructurando la Séptima Coalición armada con un único propósito: removerlo definitivamente del tablero mundial.</p>
+      <p>El choque decisivo tuvo lugar en Waterloo, Bélgica. El ejército francés atacó ferozmente las líneas aliadas defendidas con terquedad por el Duque de Wellington. Sin embargo, la oportuna y fulminante llegada de las divisiones prusianas comandadas por el mariscal Blücher desbarató las defensas imperiales, desatando una retirada irreversible.</p>
+    </div>
+    
+    <!-- IMAGE SLOT 3 -->
+    <div id="slot-3">
+      <span class="frase-historica">"En la guerra, como en el amor, para acabar es necesario verse de cerca"</span>
+      <img src="waterloo.png" alt="Choque final en Waterloo" class="imagen-historica">
+    </div>
+    
+    <!-- CONSECUENCIAS -->
+    <div class="doc-section">
+      <h2 class="section-heading">Consecuencias Históricas</h2>
+      <p>La fulminante derrota en Waterloo clausuró para siempre la influencia de Bonaparte, quien terminó sus días desterrado en el rincón más aislado del Atlántico Sur: la isla de Santa Elena.</p>
+      <p>Posteriormente, las dinastías triunfadoras celebraron el célebre Congreso de Viena, cuyo norte principal fue restaurar el absolutismo tradicional, rediseñar las fronteras continentales y tejer pactos mutuos para sofocar cualquier chispa revolucionaria inspirada en el legado galo.</p>
+    </div>
+    
+    <div class="sec-divider"><span>✦</span></div>
+    
+    <!-- CONCLUSIÓN -->
+    <div class="doc-section">
+      <h2 class="section-heading">Conclusión</h2>
+      <p>El ciclo napoleónico representó un torbellino geopolítico que, a pesar de concluir en las ruinas de Waterloo, desmanteló irremediablemente las bases feudales de Europa Occidental e inyectó las primeras semillas de los códigos civiles modernos y el sentimiento nacionalista contemporáneo.</p>
+    </div>
+    
+    <!-- ══ BOTTOM BUTTON ══ -->
+    <div class="bottom-bar">
+      <div class="ornament-row-sm" style="margin: 0 auto 36px;"><span>✦</span></div>
+      <a class="btn-questions" href="preguntas_waterloo.html"> Preguntas </a>
+      <p class="bottom-note">Evalúa lo aprendido en esta sección</p>
+    </div>
+  </div><!-- end doc-body -->
+</div><!-- end parchment -->
+</div><!-- end scroll-wrap -->
+</body>
+</html>

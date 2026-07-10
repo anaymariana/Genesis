@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Génesis — Editar Perfil</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:          #1e1509;
+  --ink-mid:      #3b2a14;
+  --ink-soft:     #5c4228;
+  --purple:       #3b1f4e;
+  --purple-mid:   #6b3f8a;
+  --purple-pale:  #b89fd0;
+  --gold:         #a07520;
+  --gold-light:   #c9953a;
+  --parch:        #ede0be;
+  --parch-light:  #f7f0d8;
+  --parch-dark:   #d4c090;
+  --sepia:        #8b6840;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  color: var(--ink);
+  background-color: #e8d9af;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.55  0 0 0 0 0.42  0 0 0 0 0.22  0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(100,70,20,0.025) 3px, rgba(100,70,20,0.025) 4px),
+    repeating-linear-gradient(90deg, transparent 0px, transparent 6px, rgba(80,55,15,0.015) 6px, rgba(80,55,15,0.015) 7px),
+    radial-gradient(ellipse 110% 70% at 15% 10%,  rgba(200,170,90,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 90%  80% at 85% 90%,  rgba(150,115,55,0.30) 0%, transparent 55%),
+    radial-gradient(ellipse 70%  60% at 50% 50%,  rgba(230,210,155,0.40) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 0% 100%, rgba(120,85,35,0.20)  0%, transparent 45%),
+    linear-gradient(170deg, #f0e4c0 0%, #e2cfa0 40%, #d4bc88 70%, #c8ac78 100%);
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 100% at 0%   0%,   rgba(80,50,15,0.22) 0%, transparent 38%),
+    radial-gradient(ellipse 100% 100% at 100% 0%,   rgba(80,50,15,0.18) 0%, transparent 38%),
+    radial-gradient(ellipse 100% 100% at 0%   100%, rgba(80,50,15,0.20) 0%, transparent 38%),
+    radial-gradient(ellipse 100% 100% at 100% 100%, rgba(80,50,15,0.20) 0%, transparent 38%);
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+header, main, footer, nav { position: relative; z-index: 1; }
+
+/* ══ HEADER ══ */
+header {
+  text-align: center;
+  padding: 72px 24px 52px;
+  border-bottom: 1px solid rgba(59,31,78,0.22);
+}
+.project-label {
+  font-size: 10px; letter-spacing: 0.7em; text-transform: uppercase;
+  color: var(--purple-mid); margin-bottom: 18px; display: block;
+}
+.ornament-line {
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  margin: 0 auto 20px; max-width: 380px;
+}
+.ornament-line::before, .ornament-line::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.ornament-symbol { color: var(--gold); font-size: 14px; letter-spacing: 0.2em; }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(62px, 11vw, 120px);
+  font-weight: 700; font-style: italic; line-height: 0.95;
+  color: var(--purple); letter-spacing: -0.02em;
+}
+.title-sub {
+  font-family: 'IM Fell English', serif; font-style: italic;
+  font-size: 16px; color: var(--ink-soft); margin-top: 18px; letter-spacing: 0.06em;
+}
+
+/* ══ NAV ══ */
+nav {
+  display: flex; justify-content: center; gap: 0; padding: 0 24px;
+  border-bottom: 1px solid rgba(59,31,78,0.14);
+  background: rgba(232,218,180,0.55); backdrop-filter: blur(6px);
+  position: sticky; top: 0; z-index: 10;
+}
+nav a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--ink-mid); text-decoration: none; padding: 14px 22px;
+  border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s;
+}
+nav a:hover { color: var(--purple); border-bottom-color: var(--gold); }
+nav a.active { color: var(--purple); border-bottom-color: var(--gold); }
+
+/* ══ BREADCRUMB ══ */
+.breadcrumb {
+  display: flex; align-items: center; gap: 10px;
+  padding: 22px 36px 0;
+  max-width: 720px; margin: 0 auto;
+  animation: fadeUp 0.4s both;
+}
+.breadcrumb a {
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--sepia); text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumb a:hover { color: var(--purple); }
+.breadcrumb-sep { color: var(--gold); font-size: 10px; opacity: 0.6; }
+.breadcrumb-current {
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--purple-mid);
+}
+
+/* ══ WRAPPER ══ */
+.editar-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 36px 36px 90px;
+}
+
+.section-header { text-align: center; margin-bottom: 40px; }
+.section-label {
+  font-size: 10px; letter-spacing: 0.6em; text-transform: uppercase;
+  color: var(--sepia); margin-bottom: 8px; display: block;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 400; font-style: italic; color: var(--purple);
+}
+
+/* ══ FORMULARIO PERGAMINO ══ */
+.form-card {
+  position: relative;
+  background-color: #dfc990;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' seed='12' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.52  0 0 0 0 0.38  0 0 0 0 0.18  0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(210,185,115,0.5) 0%, transparent 55%),
+    linear-gradient(145deg, #eddea8 0%, #d9c485 35%, #c8af6a 65%, #bda060 100%);
+  border-radius: 3px;
+  box-shadow: 0 3px 18px rgba(42,31,14,0.18), inset 0 0 0 1px rgba(100,70,20,0.2);
+  padding: 48px 52px 52px;
+  animation: fadeUp 0.6s both 0.1s;
+}
+
+.form-card .corner-tl { position: absolute; top: 10px; left: 10px; }
+.form-card .corner-br { position: absolute; bottom: 10px; right: 10px; transform: rotate(180deg); }
+
+/* Avatar editable */
+.avatar-section {
+  display: flex; flex-direction: column; align-items: center;
+  margin-bottom: 40px;
+}
+.avatar-ring {
+  width: 90px; height: 90px; border-radius: 50%;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 4px rgba(160,117,32,0.18), 0 4px 14px rgba(42,31,14,0.2);
+  background: linear-gradient(135deg, #c8a86a, #8b6030);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; cursor: pointer;
+  transition: box-shadow 0.3s;
+  overflow: hidden;
+}
+.avatar-ring:hover { box-shadow: 0 0 0 5px rgba(160,117,32,0.3), 0 6px 20px rgba(42,31,14,0.28); }
+.avatar-initials {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-style: italic; font-weight: 700;
+  color: var(--parch-light);
+  text-shadow: 0 2px 6px rgba(42,20,4,0.4);
+}
+.avatar-overlay {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: rgba(30,15,5,0.45);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.25s;
+}
+.avatar-ring:hover .avatar-overlay { opacity: 1; }
+.avatar-overlay-text {
+  font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--parch-light); text-align: center; line-height: 1.4;
+}
+.avatar-hint {
+  margin-top: 10px;
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--sepia); opacity: 0.7;
+}
+
+/* Divisor ornamental */
+.form-divider {
+  display: flex; align-items: center; gap: 14px; margin: 28px 0 24px;
+}
+.form-divider::before, .form-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160,117,32,0.4), transparent);
+}
+.form-divider-sym { color: var(--gold); font-size: 11px; opacity: 0.65; }
+
+/* Campos del formulario */
+.form-group { margin-bottom: 26px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 26px; }
+
+label {
+  display: block;
+  font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--sepia); margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+  width: 100%;
+  background: rgba(240,225,180,0.55);
+  border: 1px solid rgba(160,117,32,0.35);
+  border-bottom: 2px solid rgba(160,117,32,0.5);
+  border-radius: 2px;
+  padding: 11px 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  box-shadow: inset 0 1px 3px rgba(42,20,4,0.06);
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(107,63,138,0.5);
+  border-bottom-color: var(--purple-mid);
+  background: rgba(247,240,216,0.75);
+  box-shadow: inset 0 1px 3px rgba(42,20,4,0.06), 0 0 0 3px rgba(107,63,138,0.08);
+}
+input::placeholder, textarea::placeholder { color: rgba(92,66,40,0.45); font-style: italic; }
+
+textarea {
+  resize: vertical; min-height: 90px; line-height: 1.6;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a07520' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* Botones */
+.btn-row {
+  display: flex; gap: 16px; justify-content: flex-end;
+  margin-top: 36px;
+}
+
+.btn {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.45em; text-transform: uppercase;
+  padding: 13px 32px; border-radius: 2px; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: all 0.28s cubic-bezier(0.22,1,0.36,1);
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple) 0%, var(--purple-mid) 100%);
+  color: var(--parch-light);
+  box-shadow: 0 3px 12px rgba(59,31,78,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59,31,78,0.36), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid rgba(160,117,32,0.4);
+}
+.btn-secondary:hover {
+  background: rgba(160,117,32,0.1);
+  border-color: var(--gold);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+/* Mensaje de éxito (oculto por defecto) */
+.success-msg {
+  display: none;
+  margin-top: 20px;
+  padding: 14px 20px;
+  background: rgba(59,31,78,0.08);
+  border-left: 3px solid var(--purple-mid);
+  border-radius: 2px;
+  font-size: 13px; font-style: italic;
+  color: var(--purple);
+  letter-spacing: 0.02em;
+}
+.success-msg.visible { display: block; animation: fadeUp 0.4s both; }
+
+/* ══ ANIMACIÓN ══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══ FOOTER ══ */
+footer {
+  border-top: 1px solid rgba(59,31,78,0.18);
+  padding: 36px 24px; text-align: center;
+  position: relative; z-index: 1;
+}
+.footer-ornament { color: var(--gold); font-size: 20px; margin-bottom: 10px; opacity: 0.55; }
+.footer-text {
+  font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--ink-soft); opacity: 0.7;
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 680px) {
+  .form-card { padding: 32px 24px 36px; }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .btn-row { flex-direction: column-reverse; }
+  .btn { text-align: center; }
+  nav a { padding: 12px 10px; font-size: 10px; letter-spacing: 0.2em; }
+  .editar-wrapper { padding: 28px 18px 60px; }
+  .breadcrumb { padding: 18px 18px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <span class="project-label">Proyecto Académico</span>
+  <div class="ornament-line"><span class="ornament-symbol">✦ ✦ ✦</span></div>
+  <h1>Génesis</h1>
+  <p class="title-sub">Historia Mundial — Épocas Fundacionales</p>
+</header>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="Apartados.html">Independencia</a>
+  <a href="Apartados.html">Sengoku</a>
+  <a href="Apartados.html">Napoleónicas</a>
+  <a href="Apartados.html">Renacimiento</a>
+  <a href="cuenta.html" class="active">Mi Cuenta</a>
+</nav>
+
+<main>
+
+  <!-- Migas de pan -->
+  <div class="breadcrumb">
+    <a href="cuenta.html">Mi Cuenta</a>
+    <span class="breadcrumb-sep">✦</span>
+    <span class="breadcrumb-current">Editar Perfil</span>
+  </div>
+
+  <div class="editar-wrapper">
+
+    <div class="section-header">
+      <span class="section-label">Panel personal</span>
+      <h2 class="section-title">Editar Perfil</h2></a>
+    </div>
+
+    <!-- Tarjeta formulario -->
+    <div class="form-card">
+      <svg class="corner-tl" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+
+      <!-- Avatar -->
+      <div class="avatar-section">
+        <div class="avatar-ring" title="Cambiar imagen">
+          <span class="avatar-initials">A</span>
+          <div class="avatar-overlay">
+            <span class="avatar-overlay-text">Cambiar<br>imagen</span>
+          </div>
+        </div>
+        <span class="avatar-hint">Toca para cambiar</span>
+      </div>
+
+      <div class="form-divider"><span class="form-divider-sym">✦</span></div>
+
+      <!-- Nombre y apellido -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" placeholder="Alejandro" value="Alejandro">
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" id="apellido" placeholder="Morales" value="Morales">
+        </div>
+      </div>
+
+      <!-- Correo -->
+      <div class="form-group">
+        <label for="correo">Correo Electrónico</label>
+        <input type="email" id="correo" placeholder="correo@ejemplo.com" value="alejandro@ejemplo.com">
+      </div>
+
+      <!-- Nombre de usuario -->
+      <div class="form-group">
+        <label for="usuario">Nombre de Usuario</label>
+        <input type="text" id="usuario" placeholder="@cronista" value="@cronista">
+      </div>
+
+      <!-- Rango / rol -->
+      <div class="form-group">
+        <label for="rango">Rango Académico</label>
+        <select id="rango">
+          <option value="aprendiz">Aprendiz</option>
+          <option value="cronista" selected>Cronista</option>
+          <option value="historiador">Historiador</option>
+          <option value="maestro">Maestro del Pergamino</option>
+        </select>
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-group">
+        <label for="bio">Descripción Personal</label>
+        <textarea id="bio" placeholder="Escribe algo sobre ti y tu interés en la historia...">Estudioso apasionado de las épocas fundacionales de la humanidad.</textarea>
+      </div>
+
+      <div class="form-divider"><span class="form-divider-sym">✦</span></div>
+
+      <!-- Botones -->
+      <div class="btn-row">
+        <a href="cuenta.html" class="btn btn-secondary">Cancelar</a>
+        <button class="btn btn-primary" onclick="guardarCambios()">Guardar Cambios</button>
+      </div>
+
+      <!-- Mensaje de éxito -->
+      <div class="success-msg" id="successMsg">
+        ✦ &nbsp; Los cambios han sido guardados con éxito.
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-ornament">✦</div>
+  <p class="footer-text">Génesis &nbsp;·&nbsp; Historia Mundial &nbsp;·&nbsp; Proyecto Académico</p>
+</footer>
+
+<script>
+function guardarCambios() {
+  const msg = document.getElementById('successMsg');
+  msg.classList.add('visible');
+  setTimeout(() => msg.classList.remove('visible'), 3500);
+}
+</script>
+
+</body>
+</html>

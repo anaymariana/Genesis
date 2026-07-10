@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Génesis — Mi Cuenta</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:          #1e1509;
+  --ink-mid:      #3b2a14;
+  --ink-soft:     #5c4228;
+  --purple:       #3b1f4e;
+  --purple-mid:   #6b3f8a;
+  --purple-pale:  #b89fd0;
+  --gold:         #a07520;
+  --gold-light:   #c9953a;
+  --parch:        #ede0be;
+  --parch-light:  #f7f0d8;
+  --parch-dark:   #d4c090;
+  --sepia:        #8b6840;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  color: var(--ink);
+  background-color: #e8d9af;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.55  0 0 0 0 0.42  0 0 0 0 0.22  0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(100,70,20,0.025) 3px, rgba(100,70,20,0.025) 4px),
+    repeating-linear-gradient(90deg, transparent 0px, transparent 6px, rgba(80,55,15,0.015) 6px, rgba(80,55,15,0.015) 7px),
+    radial-gradient(ellipse 110% 70% at 15% 10%,  rgba(200,170,90,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 90%  80% at 85% 90%,  rgba(150,115,55,0.30) 0%, transparent 55%),
+    radial-gradient(ellipse 70%  60% at 50% 50%,  rgba(230,210,155,0.40) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 0% 100%, rgba(120,85,35,0.20)  0%, transparent 45%),
+    linear-gradient(170deg, #f0e4c0 0%, #e2cfa0 40%, #d4bc88 70%, #c8ac78 100%);
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 100% at 0%   0%,   rgba(80,50,15,0.22) 0%, transparent 38%),
+    radial-gradient(ellipse 100% 100% at 100% 0%,   rgba(80,50,15,0.18) 0%, transparent 38%),
+    radial-gradient(ellipse 100% 100% at 0%   100%, rgba(80,50,15,0.20) 0%, transparent 38%),
+    radial-gradient(ellipse 100% 100% at 100% 100%, rgba(80,50,15,0.20) 0%, transparent 38%);
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+header, main, footer, nav { position: relative; z-index: 1; }
+
+/* ══ HEADER ══ */
+header {
+  text-align: center;
+  padding: 72px 24px 52px;
+  border-bottom: 1px solid rgba(59,31,78,0.22);
+}
+.project-label {
+  font-size: 10px;
+  letter-spacing: 0.7em;
+  text-transform: uppercase;
+  color: var(--purple-mid);
+  margin-bottom: 18px;
+  display: block;
+}
+.ornament-line {
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  margin: 0 auto 20px;
+  max-width: 380px;
+}
+.ornament-line::before, .ornament-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.ornament-symbol { color: var(--gold); font-size: 14px; letter-spacing: 0.2em; }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(62px, 11vw, 120px);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 0.95;
+  color: var(--purple);
+  letter-spacing: -0.02em;
+}
+.title-sub {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-soft);
+  margin-top: 18px;
+  letter-spacing: 0.06em;
+}
+
+/* ══ NAV ══ */
+nav {
+  display: flex; justify-content: center; gap: 0;
+  padding: 0 24px;
+  border-bottom: 1px solid rgba(59,31,78,0.14);
+  background: rgba(232,218,180,0.55);
+  backdrop-filter: blur(6px);
+  position: sticky; top: 0; z-index: 10;
+}
+nav a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--ink-mid);
+  text-decoration: none;
+  padding: 14px 22px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+nav a:hover { color: var(--purple); border-bottom-color: var(--gold); }
+nav a.active { color: var(--purple); border-bottom-color: var(--gold); }
+
+/* ══ PÁGINA DE CUENTA ══ */
+.cuenta-wrapper {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 52px 36px 90px;
+}
+
+/* Encabezado de sección */
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-label {
+  font-size: 10px; letter-spacing: 0.6em; text-transform: uppercase;
+  color: var(--sepia); margin-bottom: 8px; display: block;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 400; font-style: italic;
+  color: var(--purple);
+}
+
+/* ══ TARJETA DE PERFIL ══ */
+.perfil-card {
+  position: relative;
+  background-color: #dfc990;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' seed='12' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.52  0 0 0 0 0.38  0 0 0 0 0.18  0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(210,185,115,0.5) 0%, transparent 55%),
+    linear-gradient(145deg, #eddea8 0%, #d9c485 35%, #c8af6a 65%, #bda060 100%);
+  border-radius: 3px;
+  box-shadow:
+    0 3px 18px rgba(42,31,14,0.18),
+    inset 0 0 0 1px rgba(100,70,20,0.2);
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s both;
+}
+
+/* Esquinas doradas como las cards */
+.perfil-card .corner-tl,
+.perfil-card .corner-br {
+  position: absolute;
+  width: 28px; height: 28px;
+}
+.perfil-card .corner-tl { top: 10px; left: 10px; }
+.perfil-card .corner-br {
+  bottom: 10px; right: 10px;
+  transform: rotate(180deg);
+}
+
+/* Avatar circular estilo sello */
+.avatar-ring {
+  flex-shrink: 0;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  box-shadow:
+    0 0 0 4px rgba(160,117,32,0.18),
+    0 4px 14px rgba(42,31,14,0.2);
+  background: linear-gradient(135deg, #c8a86a, #8b6030);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-initials {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--parch-light);
+  text-shadow: 0 2px 6px rgba(42,20,4,0.4);
+  letter-spacing: -0.02em;
+}
+
+.perfil-info { flex: 1; }
+.perfil-nombre {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-weight: 700; font-style: italic;
+  color: var(--purple);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.perfil-rol {
+  font-size: 10px; letter-spacing: 0.55em; text-transform: uppercase;
+  color: var(--sepia); margin-bottom: 16px;
+}
+.perfil-meta {
+  display: flex; gap: 24px; flex-wrap: wrap;
+}
+.meta-item {
+  display: flex; align-items: center; gap: 8px;
+}
+.meta-icon {
+  width: 16px; height: 16px;
+  color: var(--gold);
+  opacity: 0.8;
+}
+.meta-text {
+  font-size: 13px;
+  color: var(--ink-mid);
+  font-style: italic;
+}
+
+/* ══ GRID DE OPCIONES ══ */
+.opciones-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.opcion-card {
+  position: relative;
+  background-color: #dac585;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5  0 0 0 0 0.37  0 0 0 0 0.17  0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23f)'/%3E%3C/svg%3E"),
+    linear-gradient(145deg, #e8d898 0%, #d4c078 50%, #c4ae65 100%);
+  border-radius: 3px;
+  box-shadow:
+    0 2px 10px rgba(42,31,14,0.15),
+    inset 0 0 0 1px rgba(100,70,20,0.16);
+  padding: 28px 32px;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+  text-decoration: none;
+  display: block;
+  animation: fadeUp 0.6s both;
+}
+.opcion-card:nth-child(1) { animation-delay: 0.08s; }
+.opcion-card:nth-child(2) { animation-delay: 0.16s; }
+.opcion-card:nth-child(3) { animation-delay: 0.24s; }
+.opcion-card:nth-child(4) { animation-delay: 0.32s; }
+.opcion-card:nth-child(5) { animation-delay: 0.40s; }
+.opcion-card:nth-child(6) { animation-delay: 0.48s; }
+
+.opcion-card:hover {
+  transform: translateY(-5px) rotate(0.2deg);
+  box-shadow:
+    0 12px 32px rgba(42,31,14,0.22),
+    inset 0 0 0 1px rgba(100,70,20,0.22);
+}
+
+/* Esquinas SVG en cada opción */
+.opcion-card .corner-tl { position: absolute; top: 8px; left: 8px; }
+.opcion-card .corner-br { position: absolute; bottom: 8px; right: 8px; transform: rotate(180deg); }
+
+.opcion-numero {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px; font-style: italic;
+  color: var(--gold-light);
+  letter-spacing: 0.2em;
+  margin-bottom: 10px;
+}
+
+.opcion-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.opcion-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  font-style: italic;
+}
+
+/* Línea divisoria ornamental */
+.divider {
+  display: flex; align-items: center; gap: 16px;
+  margin: 10px 0 4px;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160,117,32,0.35), transparent);
+}
+.divider-sym { color: var(--gold); font-size: 11px; opacity: 0.6; }
+
+/* Tarjeta de cerrar sesión — estilo diferenciado */
+.opcion-card.peligro {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.5  0 0 0 0 0.37  0 0 0 0 0.17  0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23f)'/%3E%3C/svg%3E"),
+    linear-gradient(145deg, #e8d898 0%, #c4b06a 50%, #b89a58 100%);
+}
+.opcion-card.peligro .opcion-titulo { color: #5c1f1f; }
+.opcion-card.peligro .opcion-numero { color: rgba(140,40,40,0.55); }
+
+/* ══ ANIMACIÓN ══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══ FOOTER ══ */
+footer {
+  border-top: 1px solid rgba(59,31,78,0.18);
+  padding: 36px 24px; text-align: center;
+  position: relative; z-index: 1;
+}
+.footer-ornament { color: var(--gold); font-size: 20px; margin-bottom: 10px; opacity: 0.55; }
+.footer-text {
+  font-size: 10px; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--ink-soft); opacity: 0.7;
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 680px) {
+  .perfil-card { flex-direction: column; text-align: center; padding: 32px 24px; gap: 24px; }
+  .perfil-meta { justify-content: center; }
+  .opciones-grid { grid-template-columns: 1fr; }
+  nav a { padding: 12px 10px; font-size: 10px; letter-spacing: 0.2em; }
+  .cuenta-wrapper { padding: 36px 18px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER (igual que el original) ══ -->
+<header>
+  <span class="project-label">Proyecto Académico</span>
+  <div class="ornament-line"><span class="ornament-symbol">✦ ✦ ✦</span></div>
+  <h1>Génesis</h1>
+  <p class="title-sub">Historia Mundial — Épocas Fundacionales</p>
+</header>
+
+<!-- ══ NAV (sticky, igual que el original) ══ -->
+<nav>
+  <a href="Apartados.html?filtro=todos">Ver Todo</a>
+  <a href="Apartados.html?filtro=historia">Historia</a>
+  <a href="Apartados.html?filtro=ciudadania">Ciudadanía</a>
+  <a href="Apartados.html?filtro=juegos">Juegos</a>
+  <a href="Cuenta.html" class="active">Mi Cuenta</a>
+</nav>
+
+<!-- ══ CONTENIDO DE CUENTA ══ -->
+<main>
+<div class="cuenta-wrapper">
+
+  <!-- Encabezado de sección -->
+  <div class="section-header">
+    <span class="section-label">Panel personal</span>
+    <h2 class="section-title">Mi Cuenta</h2>
+  </div>
+
+  <!-- Tarjeta de perfil principal -->
+  <div class="perfil-card">
+    <!-- Esquinas doradas -->
+    <svg class="corner-tl" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <svg class="corner-br" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+
+    <!-- Avatar -->
+    <div class="avatar-ring">
+      <span class="avatar-initials">A</span>
+    </div>
+
+    <!-- Info del usuario -->
+    <div class="perfil-info">
+      <h3 class="perfil-nombre">Alejandro Morales</h3>
+      <p class="perfil-rol">Estudioso de la Historia</p>
+      <div class="divider"><span class="divider-sym">✦</span></div>
+      <div class="perfil-meta">
+        <div class="meta-item">
+          <svg class="meta-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+            <rect x="2" y="3" width="12" height="10" rx="1.5"/>
+            <path d="M2 6h12"/>
+          </svg>
+          <span class="meta-text">Miembro desde 2024</span>
+        </div>
+        <div class="meta-item">
+          <svg class="meta-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+            <circle cx="8" cy="8" r="6"/>
+            <path d="M8 5v3l2 2"/>
+          </svg>
+          <span class="meta-text">4 períodos explorados</span>
+        </div>
+        <div class="meta-item">
+          <svg class="meta-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M8 2l1.5 4h4l-3.2 2.4 1.2 4L8 10l-3.5 2.4 1.2-4L2.5 6h4z"/>
+          </svg>
+          <span class="meta-text">Rango: Cronista</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid de opciones -->
+  <div class="opciones-grid">
+
+    <!-- Editar perfil -->
+    <a href="editar_perfil.html" class="opcion-card">
+      <svg class="corner-tl" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="corner-br" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <p class="opcion-numero">— I —</p>
+      <h4 class="opcion-titulo">Editar Perfil</h4>
+      <p class="opcion-desc">Modifica tu nombre, correo y datos personales de la cuenta.</p>
+    </a>
+
+    <!-- Cambiar contraseña -->
+    <a href="#" class="opcion-card">
+      <svg class="corner-tl" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="corner-br" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <p class="opcion-numero">— II —</p>
+      <h4 class="opcion-titulo">Cambiar Contraseña</h4>
+      <p class="opcion-desc">Actualiza tu contraseña para mantener tu cuenta protegida.</p>
+    </a>
+
+    <!-- Mis favoritos -->
+    <a href="#" class="opcion-card">
+      <svg class="corner-tl" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="corner-br" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <p class="opcion-numero">— III —</p>
+      <h4 class="opcion-titulo">Períodos Guardados</h4>
+      <p class="opcion-desc">Accede a los capítulos históricos que marcaste como favoritos.</p>
+    </a>
+
+    <!-- Progreso -->
+    <a href="#" class="opcion-card">
+      <svg class="corner-tl" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="corner-br" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <p class="opcion-numero">— IV —</p>
+      <h4 class="opcion-titulo">Mi Progreso</h4>
+      <p class="opcion-desc">Revisa cuántos períodos has recorrido y qué te falta por explorar.</p>
+    </a>
+
+    <!-- Notificaciones -->
+    <a href="#" class="opcion-card">
+      <svg class="corner-tl" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="corner-br" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <p class="opcion-numero">— V —</p>
+      <h4 class="opcion-titulo">Notificaciones</h4>
+      <p class="opcion-desc">Gestiona qué avisos y novedades del proyecto deseas recibir.</p>
+    </a>
+
+    <!-- Cerrar sesión -->
+    <a href="#" class="opcion-card peligro">
+      <svg class="corner-tl" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#8b3a3a" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="corner-br" width="20" height="20" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#8b3a3a" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <p class="opcion-numero">— VI —</p>
+      <h4 class="opcion-titulo">Cerrar Sesión</h4>
+      <p class="opcion-desc">Abandona la crónica por ahora. Tu progreso quedará guardado.</p>
+    </a>
+
+  </div>
+</div>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-ornament">✦</div>
+  <p class="footer-text">Génesis &nbsp;·&nbsp; Historia Mundial &nbsp;·&nbsp; Proyecto Académico</p>
+</footer>
+
+</body>
+</html>

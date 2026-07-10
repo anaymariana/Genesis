@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Génesis — Desafío Sengoku</title>
+    <style>
+        /* Pega aquí todo el CSS que ya tenías en Independencia */
+        body { background-color: #f4e4bc; font-family: 'Playfair Display', serif; color: #3e2723; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #f7f0d8; padding: 40px; border-radius: 5px; border: 2px solid #a07520; }
+        #pantalla-sobre, #pantalla-pergamino { display: none; }
+        #juego button, #pantalla-pergamino button { background-color: #3b1f4e; color: white; padding: 12px 25px; border: none; cursor: pointer; border-radius: 5px; margin: 20px auto; display: block;}
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Playfair+Display:ital,wght@0,400;1,600&display=swap');
+
+/* --- ESTRUCTURA GENERAL --- */
+body {
+    background-color: #f4e4bc;
+    font-family: 'Playfair Display', serif;
+    color: #3e2723;
+    padding: 20px;
+}
+
+/* El recuadro del formulario (lo que tenías antes) */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #f7f0d8;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 2px solid #a07520;
+}
+
+/* --- SOBRE (Flotante y místico) --- */
+#pantalla-sobre {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    animation: flotar 3s infinite ease-in-out;
+}
+
+#pantalla-sobre img {
+    width: 320px;
+    transition: transform 0.3s;
+}
+
+#pantalla-sobre:hover img {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 15px #ffd700);
+}
+
+.texto-sello {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: #4a3728;
+    margin-top: 15px;
+    text-align: center;
+    width: 350px;
+}
+
+/* --- PERGAMINO --- */
+#pantalla-pergamino {
+    display: none;
+    background: #fffaf0 url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 2px solid #b8860b;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    text-align: center;
+    animation: aparecer 1s ease-out;
+}
+/* --- BOTONES --- */
+/* Botón de Enviar (dentro del formulario) */
+#juego button {
+    background-color: #3b1f4e; /* El mismo morado de los otros botones */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    border-radius: 5px;
+    display: block;
+    margin: 20px auto;
+}
+
+/* Botón de Volver (dentro del pergamino) */
+#pantalla-pergamino button {
+    background-color: #3b1f4e; /* ¡Morado elegante! */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes flotar {
+    0%, 100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, -60%); }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="juego">
+    <h2>Desafío del Periodo Sengoku</h2>
+    <div id="contenedor-preguntas"></div>
+    <button onclick="verificar()">Enviar Respuestas</button>
+</div>
+<div id="pantalla-sobre" style="display: none;">
+    <div class="carta-container" onclick="abrirSobre()" style="cursor: pointer;">
+        <img src="imagen.png.jfif" alt="Sobre antiguo" style="width: 300px;">
+        <p>Toca el sello para revelar tu destino guerrero.</p>
+    </div>
+</div>
+</div>
+<div id="pantalla-pergamino" style="display: none; opacity: 0; transition: opacity 1s;">
+    <h2 id="mensaje-motivador"></h2>
+    <p id="mensaje-puntos"></p>
+    <div id="revision"></div>
+    <button onclick="window.location.href='Apartados.html'">Volver al Inicio</button>
+</div>
+<script>
+    let listaPreguntas = [];
+    let correctasGlobal = 0;
+    let feedbackHTMLGlobal = "";
+
+fetch('cuestionario.php?tema_id=2') 
+    .then(response => response.json())
+    .then(data => {
+        // AQUÍ MEZCLAMOS TODO EN EL NAVEGADOR
+        // 1. Mezclamos las preguntas
+        listaPreguntas = data.sort(() => Math.random() - 0.5);
+        
+        const contenedor = document.getElementById('contenedor-preguntas');
+        contenedor.innerHTML = ""; // Limpiamos el contenedor antes de dibujar
+        
+        listaPreguntas.forEach((item, index) => {
+            // 2. Mezclamos las respuestas de cada pregunta
+            let respuestasMezcladas = item.respuestas.sort(() => Math.random() - 0.5);
+            
+            let htmlPregunta = `<div class="pregunta-box">
+                                 <p><strong>${index + 1}. ${item.enunciado}</strong></p>`;
+            
+            respuestasMezcladas.forEach(res => {
+                // El 'value' sigue siendo el mismo (1 o 0), así que la lógica no se rompe
+                htmlPregunta += `<label style="display: block;"><input type="radio" name="p${item.id_pregunta}" value="${res.es_correcta}"> ${res.texto_respuesta}</label>`;
+            });
+            contenedor.innerHTML += htmlPregunta + `</div>`;
+        });
+    });
+
+    function verificar() {
+    let correctas = 0;
+    let feedbackHTML = "<ul>";
+    
+    listaPreguntas.forEach((item, index) => {
+        const sel = document.querySelector(`input[name="p${item.id_pregunta}"]:checked`);
+        if (sel && sel.value === "1") { 
+            correctas++;
+            feedbackHTML += `<li>✅ Pregunta ${index + 1} correcta</li>`; 
+        } else {
+            feedbackHTML += `<li>❌ Pregunta ${index + 1} incorrecta</li>`;
+        }
+    });
+    
+    correctasGlobal = correctas;
+    feedbackHTMLGlobal = feedbackHTML + "</ul>";
+    
+    // Ocultar el cuestionario
+    document.getElementById('juego').style.display = 'none';
+
+    // FORZAR LA APARICIÓN DEL SOBRE
+    const sobre = document.getElementById('pantalla-sobre');
+    sobre.style.display = 'flex'; // ¡Usa 'flex' porque tu CSS de arriba lo necesita!
+    sobre.classList.add('brillo');
+ 
+    
+    guardarEnBaseDeDatos(correctas);
+}
+
+   function abrirSobre() {
+    const pantallaSobre = document.getElementById('pantalla-sobre');
+    const pantallaPergamino = document.getElementById('pantalla-pergamino');
+
+    pantallaSobre.style.display = 'none';
+    pantallaPergamino.style.display = 'block';
+    
+    setTimeout(() => {
+        pantallaPergamino.style.opacity = '1';
+        document.getElementById('mensaje-puntos').innerHTML = `Lograste <strong>${correctasGlobal}/${listaPreguntas.length}</strong>`;
+        document.getElementById('revision').innerHTML = feedbackHTMLGlobal;
+        iniciarEscritura();
+    }, 100); 
+}
+
+function iniciarEscritura() {
+    let mensaje = "";
+    if (correctasGlobal === listaPreguntas.length) {
+        mensaje = "¡SHOGUN SUPREMO! Has unificado Japón bajo tu mando. Tu estrategia fue impecable y tu legado perdurará por siglos.";
+    } else if (correctasGlobal >= 15) {
+        mensaje = "¡EXCELENTE SAMURÁI! Has demostrado gran destreza en el campo de batalla. Tu clan es respetado en toda la provincia.";
+    } else if (correctasGlobal >= 10) {
+        mensaje = "¡BUEN ESFUERZO! Has sobrevivido a las guerras de clanes. Sigue entrenando tus tácticas, el camino del guerrero es largo.";
+    } else {
+        mensaje = "¡EL CASTILLO HA CAÍDO! Tus tácticas no fueron suficientes ante la astucia de los Daimyo. Estudia la historia y vuelve a intentarlo.";
+    }
+
+    const elementoMensaje = document.getElementById('mensaje-motivador');
+    elementoMensaje.innerText = "";
+    let i = 0;
+    function escribir() {
+        if (i < mensaje.length) {
+            elementoMensaje.innerHTML += mensaje.charAt(i);
+            i++;
+            setTimeout(escribir, 50);
+        }
+    }
+    escribir();
+}
+
+function guardarEnBaseDeDatos(puntajeTotal) {
+    let datos = new FormData();
+    datos.append('puntaje', puntajeTotal);
+    datos.append('id_tema', 2);
+    fetch('guardar_partida.php', { method: 'POST', body: datos });
+}
+</script>
+</body>
+</html>

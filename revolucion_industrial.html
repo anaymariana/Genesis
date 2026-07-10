@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Génesis - La Revolución Industrial</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(to right, #d4c28d, #decfa3, #d4c28d);
+            margin: 0;
+            padding: 40px 20px;
+            color: #3e3323;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Botón superior Volver */
+        .btn-volver {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #5c4d37;
+            font-size: 0.85em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: 1px solid #5c4d37;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            background-color: #5c4d37;
+            color: #f4ecd8;
+        }
+
+        /* Logo superior derecho Génesis */
+        .logo-genesis {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            color: #5c4d37;
+        }
+
+        /* Contenedor principal estilo pergamino */
+        .container {
+            max-width: 750px;
+            width: 100%;
+            background-color: #f4ecd8;
+            padding: 60px 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-top: 40px;
+            box-sizing: border-box;
+        }
+
+        .header-subtitle {
+            text-align: center;
+            font-size: 0.75em;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #8c7653;
+            margin-bottom: 5px;
+        }
+
+        .separador-rombos {
+            text-align: center;
+            color: #b59963;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            letter-spacing: 5px;
+        }
+
+        h1 {
+            font-size: 2.6em;
+            color: #2b1f1d;
+            text-align: center;
+            margin: 0 0 10px 0;
+            font-weight: normal;
+        }
+
+        .lema {
+            text-align: center;
+            font-style: italic;
+            font-size: 0.95em;
+            color: #5c4d37;
+            margin-bottom: 40px;
+        }
+
+        /* Letra capital */
+        .letra-capital::first-letter {
+            font-size: 3.5em;
+            float: left;
+            margin-top: 0.1em;
+            margin-right: 0.1em;
+            line-height: 0.85;
+            color: #2b1f1d;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 1.15em;
+            color: #5c4d37;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "✦ ";
+            color: #b59963;
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+
+        p {
+            text-align: justify;
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: #3e3323;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #2b1f1d;
+        }
+
+        /* Cuadro de concientización con brillo (Glow effect) */
+        /* Cuadro de concientización con brillo amarillo intenso */
+        .reflexion-box {
+            background-color: #ede2c4;
+            border: 1px solid #b59963;
+            padding: 30px;
+            margin-top: 50px;
+            margin-bottom: 40px;
+            position: relative;
+            /* Brillo amarillo continuo de fondo */
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); 
+            transition: all 0.5s ease;
+        }
+
+        /* Animación y aumento de brillo amarillo al pasar el mouse */
+        .reflexion-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.95);
+            background-color: #eae0be;
+        }
+
+        .reflexion-box h3 {
+            margin-top: 0;
+            font-size: 1.1em;
+            color: #2b1f1d;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Contenedor del símbolo animado */
+        .simbolo-libertad {
+            display: inline-block;
+            font-size: 1.3em;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Efecto de Injusticia / Libertad Rota al pasar el mouse por el cuadro */
+        .reflexion-box:hover .simbolo-libertad {
+            transform: rotate(180px) scale(1.2) translateY(3px); /* Se voltea e inclina */
+            filter: grayscale(1) sepia(1) hue-rotate(-50deg) saturate(5); /* Cambia a un tono dramático y oscuro */
+            opacity: 0.8;
+        }
+
+        .reflexion-box p {
+            font-size: 1em;
+            font-style: italic;
+            color: #4a3b2c;
+            line-height: 1.6;
+        }
+        .btn-preguntas {
+    display: block;
+    width: 220px;
+    margin: 40px auto 0 auto;
+    padding: 14px;
+    background-color: #5b3f70; /* Morado más oscuro corregido */
+    color: #f4ecd8;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.85em;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+    </style>
+</head>
+<body>
+
+    <a href="temas.php" class="btn-volver">← Volver</a>
+    <div class="logo-genesis">Génesis</div>
+
+    <div class="container">
+        <div class="header-subtitle">Historia Universal ✦ Génesis</div>
+        <div class="separador-rombos">◆ ◆ ◆</div>
+        
+        <h1>La Revolución Industrial</h1>
+        <div class="lema">El cambio global en la estructura de la producción y el trabajo</div>
+        
+        <p class="letra-capital">A mediados del siglo XVIII, alrededor del año 1750, el mundo experimentó una transformación radical que comenzó en <span class="highlight">Gran Bretaña</span>. Este proceso, conocido como la Primera Revolución Industrial, marcó el paso de una economía completamente agrícola y artesanal a una dominada por la industria y la manufactura mecanizada, transformando los antiguos talleres familiares en el innovador <span class="highlight">sistema de fábrica (Factory System)</span>.</p>
+
+        <h2>Fuentes de Energía e Inventos Clave</h2>
+        <p>El motor de esta primera fase fue <span class="highlight">el carbón y el vapor</span>. La madera comenzó a ser sustituida masivamente por el <span class="highlight">carbón mineral</span>, un combustible con un poder calorífico mucho mayor. Utilizando esta energía, en 1769, <span class="highlight">James Watt</span> perfeccionó la <span class="highlight">máquina de vapor</span>, un invento que cambió las reglas del juego al permitir mover maquinarias pesadas de forma continua.</p>
+        
+        <p>La <span class="highlight">industria textil (algodón)</span> fue la pionera absoluta en aplicar estas tecnologías a gran escala. Más adelante, inventos norteamericanos como la desmotadora de algodón de <span class="highlight">Eli Whitney</span> agilizaron drásticamente la obtención de materia prima. El impacto tecnológico se trasladó pronto al transporte: en 1807, <span class="highlight">Robert Fulton</span> transformó la navegación comercial con el <span class="highlight">barco de vapor</span>, y en 1814, <span class="highlight">George Stephenson</span> revolucionó el transporte terrestre al crear la <span class="highlight">locomotora de vapor</span>.</p>
+
+        <h2>Cambios Sociales y Teorías Económicas</h2>
+        <p>La industrialización provocó un masivo <span class="highlight">éxodo rural</span>: millones de campesinos migraron del campo a las nacientes ciudades en busca de empleo en las fábricas, un fenómeno de urbanización acelerado. Este cambio demográfico consolidó la aparición de una nueva e importante clase social: el <span class="highlight">proletariado industrial</span> (los obreros).</p>
+
+        <p>En el plano económico, las bases teóricas de este nuevo sistema ya habían sido puestas por <span class="highlight">Adam Smith</span>, considerado el padre del capitalismo, quien en su famosa obra <em>"La riqueza de las naciones"</em> defendía el libre mercado. Sin embargo, las duras condiciones de las fábricas generaron fuertes resistencias. El movimiento obrero conocido como el <span class="highlight">ludismo</span> protestaba destruyendo las máquinas de las fábricas, a las que culpaban de la pérdida de empleos y la baja de los salarios.</p>
+
+        <h2>La Segunda Revolución Industrial</h2>
+        <p>Hacia finales del siglo XIX comenzó la llamada <span class="highlight">Segunda Revolución Industrial</span>. Esta fase se caracterizó por la sustitución del viejo carbón por dos nuevas fuentes de energía: <span class="highlight">la electricidad y el petróleo</span>. Además, la metalurgia dio un salto gigantesco gracias al convertidor inventado por <span class="highlight">Henry Bessemer</span> in 1856, el cual permitió producir <span class="highlight">acero en masa y a bajo costo</span> para barcos, vías y rascacielos.</p>
+        
+        <p>A nivel de organización laboral, los obreros empezaron a unirse en <span class="highlight">sindicatos (Trade Unions)</span> para exigir derechos básicos, ya que las fábricas del siglo XIX destacaban por la brutal <span class="highlight">explotación laboral infantil y jornadas extremas</span> que superaban las 14 horas diarias. Con el tiempo, entrado el siglo XX, empresarios como <span class="highlight">Henry Ford</span> optimizaron al máximo la velocidad de producción introduciendo la famosa <span class="highlight">línea de montaje (producción en cadena)</span>.</p>
+
+            <!-- CUADRO DE REFLEXIÓN ACTUALIZADO CON SÍMBOLO -->
+        <div class="reflexion-box">
+            <h3>
+                <span class="simbolo-libertad">🕊️</span> 
+                El Espejismo de la "Libertad Obrera" 
+                <span class="simbolo-libertad">🕊️</span>
+            </h3>
+            <p>A diferencia de la época feudal o de la antigüedad, la Revolución Industrial introdujo un concepto paradójico: ante la ley, los obreros eran hombres completamente "libres".</p>
+            <p>Sin embargo, como analizó el filósofo y economista alemán <span class="highlight">Karl Marx</span> (quien junto a Friedrich Engels escribió el <em>"Manifiesto Comunista"</em> en 1848), esta libertad ocultaba una realidad alarmante. Al no poseer tierras ni máquinas, el trabajador industrial solo tenía su cuerpo y su tiempo. Para sobrevivir, se veía obligado a vender su fuerza de trabajo a cambio de un salario miserable.</p>
+            <p>¿Qué sentido real tenía ser libres si la única alternativa a no aceptar jornadas inhumanas de 16 horas era morir de hambre en las calles? Las cadenas ya no eran de hierro, sino de necesidad económica. La coacción física fue reemplazada por una sutil pero implacable presión psicológica.</p>
+        </div>
+
+        <!-- Botón morado exacto de tu UI -->
+         <a href="preguntas.revolucion_industrial.html" class="btn-preguntas">Preguntas →</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Revolución Francesa — Génesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:         #1e1509;
+  --ink-mid:     #3b2a14;
+  --ink-soft:    #5c4228;
+  --purple:      #3b1f4e;
+  --purple-mid:  #6b3f8a;
+  --purple-pale: #b89fd0;
+  --gold:        #a07520;
+  --gold-light:  #c9953a;
+  --parch:       #ede0be;
+  --sepia:       #8b6840;
+  --cream:       #faf4e1;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--ink);
+  background-color: #c8b070;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.45 0 0 0 0 0.32 0 0 0 0 0.10 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 120% 80% at 10% 5%,   rgba(210,185,110,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 90% 95%, rgba(160,120,50,0.4)  0%, transparent 55%),
+    radial-gradient(ellipse 80%  60% at 50% 50%, rgba(230,210,145,0.5) 0%, transparent 60%),
+    linear-gradient(160deg, #e8d9a0 0%, #d9c580 35%, #c8af60 65%, #bba055 100%);
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 80% at 0%   0%,   rgba(70,45,10,0.28) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 100% 0%,   rgba(70,45,10,0.22) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 0%   100%, rgba(70,45,10,0.25) 0%, transparent 40%),
+    radial-gradient(ellipse 80% 80% at 100% 100%, rgba(70,45,10,0.25) 0%, transparent 40%);
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+.top-bar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 32px;
+  background: rgba(200,175,100,0.65);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(59,31,78,0.18);
+}
+.btn-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--ink-mid); text-decoration: none;
+  background: none; border: 1px solid rgba(100,70,20,0.35);
+  padding: 7px 16px; border-radius: 2px; cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn-back:hover {
+  background: rgba(59,31,78,0.08); border-color: var(--gold); color: var(--purple);
+}
+.btn-back::before { content: '←'; font-size: 14px; }
+.top-project {
+  font-family: 'Playfair Display', serif; font-style: italic; font-size: 18px;
+  color: var(--purple); opacity: 0.7;
+}
+.scroll-wrap {
+  position: relative; z-index: 1; max-width: 800px; margin: 48px auto 80px; padding: 0 24px;
+}
+.parchment {
+  position: relative; background-color: #f5eacc;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.55 0 0 0 0 0.42 0 0 0 0 0.22 0 0 0 0.10 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(180deg, transparent 0px, transparent 2px, rgba(100,70,20,0.018) 2px, rgba(100,70,20,0.018) 3px),
+    radial-gradient(ellipse 110% 60% at 50% 10%, rgba(255,245,210,0.7) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 10% 90%,  rgba(180,145,75,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 50% at 90% 80%,  rgba(180,145,75,0.2) 0%, transparent 50%),
+    linear-gradient(175deg, #faf3dc 0%, #f0e4b8 30%, #e8d8a0 60%, #dfd098 100%);
+  border-radius: 2px;
+  box-shadow: 0 8px 40px rgba(42,31,14,0.28), 0 2px 8px rgba(42,31,14,0.18), inset 0 0 0 1px rgba(100,70,20,0.12);
+  padding: 60px 64px 72px;
+}
+.p-stain { position: absolute; border-radius: 50%; pointer-events: none; }
+.doc-header { text-align: center; margin-bottom: 44px; }
+.doc-eyebrow { font-size: 10px; letter-spacing: 0.65em; text-transform: uppercase; color: var(--purple-mid); margin-bottom: 14px; display: block; }
+.ornament-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 0 auto 16px; max-width: 340px; }
+.ornament-row::before, .ornament-row::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.ornament-sym { color: var(--gold); font-size: 13px; letter-spacing: 0.2em; }
+.doc-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 700; line-height: 1.1; color: var(--purple); }
+.doc-subtitle { font-family: 'IM Fell English', serif; font-style: italic; font-size: 15px; color: var(--ink-soft); margin-top: 10px; }
+.section-heading { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--purple); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(160,117,32,0.3); display: flex; align-items: center; gap: 10px; }
+.section-heading::before { content: '✦'; font-size: 10px; color: var(--gold); opacity: 0.7; }
+p { font-family: 'IM Fell English', serif; font-size: 17px; line-height: 1.9; color: var(--ink-mid); margin-bottom: 18px; text-align: justify; }
+.drop-cap::first-letter { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700; float: left; line-height: 0.75; margin: 6px 10px 0 0; color: var(--purple); }
+.sec-divider { display: flex; align-items: center; gap: 14px; margin: 40px 0 36px; color: var(--gold); }
+.sec-divider::before, .sec-divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(160,117,32,0.45), transparent); }
+.bottom-bar { text-align: center; margin-top: 52px; padding-top: 40px; border-top: 1px solid rgba(100,70,20,0.25); }
+.btn-questions { display: inline-flex; align-items: center; gap: 10px; font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.42em; text-transform: uppercase; color: var(--cream); background: var(--purple); border: 1px solid rgba(107,63,138,0.6); padding: 14px 32px; border-radius: 2px; cursor: pointer; text-decoration: none; box-shadow: 0 2px 12px rgba(59,31,78,0.2); }
+.btn-questions:hover { background: var(--purple-mid); box-shadow: 0 4px 20px rgba(59,31,78,0.35); }
+.btn-questions::after { content: '→'; font-size: 15px; }
+
+/* Estilo de la Imagen Histórica Brillante */
+.imagen-historica { width: 100% !important; max-width: 500px !important; max-height: 400px !important; object-fit: contain !important; display: block !important; margin: 20px auto !important; border: 3px solid #a07520 !important; border-radius: 12px !important; transition: all 0.4s ease !important; cursor: pointer !important; }
+.imagen-historica:hover { transform: scale(1.05) !important; filter: drop-shadow(0 0 25px #ffd700) brightness(1.1) !important; border-color: #ffd700 !important; }
+.frase-historica { font-family: 'Dancing Script', cursive !important; font-size: 1.6rem !important; color: #4a3728 !important; text-align: center !important; display: block !important; margin: 25px auto 5px auto !important; }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <a class="btn-back" href="Apartados.html">Volver</a>
+  <span class="top-project">Génesis</span>
+</div>
+<div class="scroll-wrap">
+<div class="parchment">
+  <div class="p-stain" style="width:200px;height:160px;top:-30px;right:-40px;background:radial-gradient(ellipse,rgba(100,65,20,0.07) 0%,transparent 70%);"></div>
+  <div class="p-stain" style="width:150px;height:120px;bottom:80px;left:-30px;background:radial-gradient(ellipse,rgba(59,31,78,0.05) 0%,transparent 70%);"></div>
+
+  <div class="doc-header">
+    <span class="doc-eyebrow">Historia Universal · Génesis</span>
+    <div class="ornament-row"><span class="ornament-sym">✦ ✦ ✦</span></div>
+    <h1 class="doc-title">La Revolución Francesa</h1>
+    <p class="doc-subtitle">Libertad, Igualdad y Fraternidad contra el Antiguo Régimen · 1789</p>
+  </div>
+  
+  <div class="doc-body">
+    <div class="doc-section">
+      <p class="drop-cap">El año de 1789 marcó el colapso del orden feudal en Francia. Bajo el yugo de una profunda crisis financiera, el derroche de la corte real de Luis XVI y el descontento de la burguesía, el Tercer Estado alzó la voz para demandar una transformación política radical.</p>
+    </div>
+    
+    <div>
+      <span class="frase-historica">"Libertad, Igualdad, Fraternidad o la muerte"</span>
+      <img src="toma_bastilla.jpg" alt="Toma de la Bastilla" class="imagen-historica">
+    </div>
+    
+    <div class="doc-section">
+      <h2 class="section-heading">La Caída de la Bastilla</h2>
+      <p>La tensión estalló por completo el 14 de julio de 1789, cuando el pueblo de París asaltó la fortaleza de la Bastilla, símbolo medieval de la tiranía absolutista. Este suceso histórico catalizó la creación de la Asamblea Nacional Constituyente, la cual proclamó la célebre Declaración de los Derechos del Hombre y del Ciudadano.</p>
+    </div>
+    
+    <div class="sec-divider"><span>✦</span></div>
+    
+    <div class="doc-section">
+      <h2 class="section-heading">El Régimen del Terror</h2>
+      <p>La revolución se radicalizó drásticamente con la caída de la monarquía y el nacimiento de la Primera República. Liderados por Maximilien Robespierre y los Jacobinos, el periodo conocido como "El Terror" (1793–1794) cubrió de sangre las plazas francesas utilizando la guillotina como máxima herramienta de purga política, ejecutando incluso a los propios reyes.</p>
+    </div>
+    
+    <div>
+      <span class="frase-historica">"El terror no es más que la justicia rápida, severa e inflexible"</span>
+      <img src="guillotina_terror.png" alt="El Régimen del Terror" class="imagen-historica">
+    </div>
+    
+    <div class="doc-section">
+      <h2 class="section-heading">Hacia un Nuevo Orden</h2>
+      <p>Tras la ejecución de Robespierre en la Reacción Termidoriana, el poder pasó a un Directorio moderado que luchó por mantener la estabilidad nacional. Finalmente, la inestabilidad concluyó en 1799, cuando un joven y brillante general llamado Napoleón Bonaparte ejecutó el Golpe de Estado del 18 de brumario, abriendo paso a un nuevo capítulo en la historia global.</p>
+    </div>
+    
+    <div class="bottom-bar">
+      <a class="btn-questions" href="preguntas_revolucion.html">Preguntas</a>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GENESIS · Acceso</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment-light: #f0e6c8;
+    --parchment-mid: #d4b896;
+    --parchment-dark: #b8935a;
+    --earth-sand: #c9a87c;
+    --earth-terra: #8b4a2f;
+    --earth-brown: #5c3317;
+    --purple-deep: #3d1a4f;
+    --purple-wine: #6b2d5e;
+    --purple-plum: #4a1942;
+    --gold-accent: #c9973a;
+    --ink-dark: #1a0e0a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--purple-deep);
+    overflow-x: hidden;
+    font-family: 'Cinzel', serif;
+  }
+
+  /* ── PARCHMENT BG ── */
+  .parchment {
+    min-height: 100vh;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(90,50,20,.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(60,20,60,.22) 0%, transparent 55%),
+      linear-gradient(160deg, #e8d9b0 0%, #d4bf8e 20%, #c9a87c 45%, #d6bf90 65%, #e0cfa0 85%, #c8b070 100%);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  /* Grain */
+  .parchment::before {
+    content:'';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: .09; mix-blend-mode: multiply; pointer-events: none; z-index: 0;
+  }
+
+  /* Vignette */
+  .parchment::after {
+    content:'';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 100% 100% at 50% 50%,
+      transparent 45%, rgba(40,15,5,.22) 70%, rgba(20,5,2,.60) 92%, rgba(10,3,1,.82) 100%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .corner-burn {
+    position: absolute; width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,3,1,.78) 0%, transparent 70%);
+    pointer-events: none; z-index: 1;
+  }
+  .tl { top:-70px; left:-70px; }
+  .tr { top:-70px; right:-70px; }
+  .bl { bottom:-70px; left:-70px; }
+  .br { bottom:-70px; right:-70px; }
+
+  /* Stains */
+  .stain { position: absolute; border-radius: 50%; pointer-events: none; z-index: 1; }
+  .s1 { width:300px; height:180px; top:5%; left:-4%; background: radial-gradient(ellipse, rgba(70,30,10,.10) 0%, transparent 70%); transform:rotate(-18deg); }
+  .s2 { width:240px; height:150px; bottom:10%; right:-3%; background: radial-gradient(ellipse, rgba(60,20,50,.09) 0%, transparent 70%); transform:rotate(12deg); }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    position: absolute;
+    top: 28px; left: 32px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--earth-brown);
+    text-decoration: none;
+    opacity: .65;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity .25s;
+  }
+  .back-link:hover { opacity: 1; }
+  .back-link::before { content: '←'; font-size: 13px; }
+
+  /* ── BRAND HEADER ── */
+  .brand {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    margin-bottom: 30px;
+    animation: fadeDown .7s ease .1s both;
+  }
+
+  .brand-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(24px, 5vw, 38px);
+    letter-spacing: 8px;
+    color: var(--purple-deep);
+    text-shadow: 1px 1px 0 rgba(255,240,200,.5), 0 3px 14px rgba(40,10,5,.15);
+  }
+
+  .brand-divider {
+    display: flex; align-items: center; gap: 10px;
+    justify-content: center; margin-top: 10px;
+  }
+  .brand-divider .seg { width:55px; height:1px; background:linear-gradient(90deg,transparent,var(--gold-accent)); }
+  .brand-divider .seg.r { background:linear-gradient(90deg,var(--gold-accent),transparent); }
+  .brand-divider .dia { width:6px;height:6px;background:var(--gold-accent);transform:rotate(45deg);box-shadow:0 0 6px rgba(201,151,58,.5); }
+
+  /* ── CARD ── */
+  .card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 430px;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(255,248,225,.65) 0%, transparent 60%),
+      linear-gradient(160deg, #f5e9c8 0%, #ecdcae 40%, #e3d09e 100%);
+    border: 1px solid rgba(180,130,70,.35);
+    border-radius: 6px;
+    padding: 42px 44px 38px;
+    box-shadow:
+      0 8px 40px rgba(20,5,2,.22),
+      0 2px 8px rgba(20,5,2,.12),
+      inset 0 1px 0 rgba(255,255,255,.55),
+      inset 0 -1px 0 rgba(90,40,10,.1);
+    animation: fadeUp .75s ease .25s both;
+  }
+
+  /* card grain */
+  .card::before {
+    content:'';
+    position: absolute; inset: 0; border-radius: 6px;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: .055; mix-blend-mode: multiply; pointer-events: none;
+  }
+
+  /* corner wear on card */
+  .card::after {
+    content:'';
+    position: absolute; inset: 0; border-radius: 6px;
+    background:
+      radial-gradient(ellipse at top left, rgba(20,5,2,.07) 0%, transparent 35%),
+      radial-gradient(ellipse at bottom right, rgba(20,5,2,.06) 0%, transparent 35%);
+    pointer-events: none;
+  }
+
+  /* ── FORM PANELS ── */
+  .form-panel { display: none; position: relative; z-index: 1; }
+  .form-panel.active {
+    display: block;
+    animation: panelIn .45s ease both;
+  }
+
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── FORM TITLE ── */
+  .form-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--purple-deep);
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .form-subtitle {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--earth-terra);
+    text-align: center;
+    margin-bottom: 26px;
+    opacity: .8;
+  }
+
+  /* small divider under title */
+  .title-rule {
+    display: flex; align-items: center; gap: 8px; justify-content: center;
+    margin-bottom: 24px;
+  }
+  .title-rule .r { width:40px;height:1px;background:linear-gradient(90deg,transparent,rgba(90,40,10,.4)); }
+  .title-rule .r2 { background:linear-gradient(90deg,rgba(90,40,10,.4),transparent); }
+  .title-rule span { font-size:10px; color:var(--gold-accent); opacity:.8; }
+
+  /* ── FORM FIELDS ── */
+  .field {
+    margin-bottom: 18px;
+  }
+
+  label {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--earth-brown);
+    opacity: .75;
+    margin-bottom: 6px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 11px 14px;
+    background: rgba(240,220,180,.35);
+    border: 1px solid rgba(140,90,40,.3);
+    border-radius: 3px;
+    font-family: 'IM Fell English', serif;
+    font-size: 14px;
+    color: var(--ink-dark);
+    outline: none;
+    transition: border-color .25s, box-shadow .25s, background .25s;
+    box-shadow: inset 0 1px 3px rgba(20,5,2,.07);
+  }
+
+  input::placeholder {
+    color: rgba(90,50,20,.38);
+    font-style: italic;
+  }
+
+  input:focus {
+    border-color: rgba(107,45,94,.5);
+    background: rgba(240,220,180,.55);
+    box-shadow:
+      inset 0 1px 3px rgba(20,5,2,.07),
+      0 0 0 3px rgba(107,45,94,.1);
+  }
+
+  /* ── PRIMARY BUTTON ── */
+  .btn-main {
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--parchment-light);
+    background: linear-gradient(135deg, var(--purple-plum), var(--purple-wine), var(--purple-deep));
+    border: 1px solid rgba(201,151,58,.28);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all .32s ease;
+    box-shadow:
+      0 3px 16px rgba(60,20,60,.3),
+      inset 0 1px 0 rgba(255,255,255,.1),
+      inset 0 -1px 0 rgba(0,0,0,.18);
+  }
+
+  .btn-main::before {
+    content:'';
+    position: absolute; inset: 0;
+    background: rgba(255,255,255,.07);
+    transform: translateX(-100%) skewX(-12deg);
+    transition: transform .38s ease;
+  }
+  .btn-main:hover::before { transform: translateX(120%) skewX(-12deg); }
+  .btn-main:hover {
+    background: linear-gradient(135deg, var(--purple-wine), #7d3470, var(--purple-plum));
+    box-shadow:
+      0 5px 22px rgba(107,45,94,.45),
+      inset 0 1px 0 rgba(255,255,255,.15);
+    transform: translateY(-1px);
+    border-color: rgba(201,151,58,.45);
+  }
+  .btn-main:active { transform: translateY(0); }
+
+  /* ── SWITCH LINK ── */
+  .switch-link {
+    text-align: center;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(90,40,10,.15);
+  }
+
+  .switch-link p {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--earth-brown);
+    opacity: .75;
+  }
+
+  .switch-link a {
+    color: var(--purple-wine);
+    text-decoration: none;
+    font-weight: 600;
+    font-style: normal;
+    border-bottom: 1px solid rgba(107,45,94,.3);
+    padding-bottom: 1px;
+    transition: color .2s, border-color .2s;
+  }
+  .switch-link a:hover {
+    color: var(--purple-deep);
+    border-color: var(--purple-deep);
+  }
+
+  /* ── FOOTER SEAL ── */
+  .footer-seal {
+    position: relative; z-index: 10;
+    margin-top: 28px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    animation: fadeIn .8s ease .8s both;
+  }
+  .seal-ring {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid rgba(90,40,10,.35);
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle, rgba(201,151,58,.1), transparent);
+    box-shadow: 0 1px 6px rgba(60,20,10,.1), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .seal-ring span { font-size:16px; opacity:.65; }
+  .seal-text {
+    font-family: 'Cinzel', serif;
+    font-size: 8px; letter-spacing: 3px;
+    color: var(--earth-brown); opacity: .45; text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity:0; transform:translateY(-14px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(18px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity:0; } to { opacity:1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 500px) {
+    .card { padding: 32px 26px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="parchment">
+
+  <!-- Corner burns -->
+  <div class="corner-burn tl"></div>
+  <div class="corner-burn tr"></div>
+  <div class="corner-burn bl"></div>
+  <div class="corner-burn br"></div>
+
+  <!-- Stains -->
+  <div class="stain s1"></div>
+  <div class="stain s2"></div>
+
+  <!-- Back to home -->
+  <a href="genesis.html" class="back-link">Volver</a>
+
+  <!-- Brand -->
+  <div class="brand">
+    <div class="brand-title">GENESIS</div>
+    <div class="brand-divider">
+      <div class="seg"></div>
+      <div class="dia"></div>
+      <div class="seg r"></div>
+    </div>
+  </div>
+
+  <!-- Auth Card -->
+  <div class="card">
+
+    <!-- LOGIN PANEL -->
+    <div class="form-panel" id="panel-login">
+      <p class="form-title">Iniciar Sesión</p>
+      <p class="form-subtitle">Continúa tu viaje a través del tiempo</p>
+      <div class="title-rule">
+        <div class="r"></div>
+        <span>✦</span>
+        <div class="r r2"></div>
+      </div>
+
+      <div class="field">
+        <label for="login-email">Correo electrónico</label>
+        <input type="email" id="login-email" placeholder="tu@correo.com">
+      </div>
+
+      <div class="field">
+        <label for="login-pass">Contraseña</label>
+        <input type="password" id="login-pass" placeholder="••••••••">
+      </div>
+
+      <a href="Apartados.html" class="btn-main" style="text-align: center; display: inline-block; text-decoration: none;">
+  Entrar
+</a>
+
+      <div class="switch-link">
+        <p>¿No tienes cuenta? <a href="#" onclick="showPanel('register'); return false;"> <a href="registrate.html">Regístrate</a></a></p>
+      </div>
+    </div>
+
+    <!-- REGISTER PANEL -->
+    <div class="form-panel" id="panel-register">
+      <p class="form-title">Crear Cuenta</p>
+      <p class="form-subtitle">Da inicio a tu historia en GENESIS</p>
+      <div class="title-rule">
+        <div class="r"></div>
+        <span>✦</span>
+        <div class="r r2"></div>
+      </div>
+
+      <div class="field">
+        <label for="reg-name">Nombre completo</label>
+        <input type="text" id="reg-name" placeholder="Tu nombre">
+      </div>
+
+      <div class="field">
+        <label for="reg-email">Correo electrónico</label>
+        <input type="email" id="reg-email" placeholder="tu@correo.com">
+      </div>
+
+      <div class="field">
+        <label for="reg-pass">Contraseña</label>
+        <input type="password" id="reg-pass" placeholder="••••••••">
+      </div>
+
+      <div class="field">
+        <label for="reg-pass2">Confirmar contraseña</label>
+        <input type="password" id="reg-pass2" placeholder="••••••••">
+      </div>
+
+      <button class="btn-main" onclick="alert('Registrando...')">Registrarse</button>
+
+      <div class="switch-link">
+        <p>¿Ya tienes cuenta? <a href="#" onclick="showPanel('login'); return false;">Inicia sesión</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer seal -->
+  <div class="footer-seal">
+    <div class="seal-ring"><span>⚜</span></div>
+    <span class="seal-text">Sigillum Veritatis</span>
+  </div>
+
+</div>
+
+<script>
+  function showPanel(name) {
+    document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('panel-' + name);
+    if (target) target.classList.add('active');
+    history.replaceState(null, '', '#' + name);
+  }
+
+  // Decide which panel to show on load
+  const hash = window.location.hash.replace('#', '');
+  showPanel(hash === 'register' ? 'register' : 'login');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Génesis — Historia Mundial</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:          #1e1509;
+  --ink-mid:      #3b2a14;
+  --ink-soft:     #5c4228;
+  --purple:       #3b1f4e;
+  --purple-mid:   #6b3f8a;
+  --purple-pale:  #b89fd0;
+  --gold:         #a07520;
+  --gold-light:   #c9953a;
+  --parch:        #ede0be;
+  --parch-light:  #f7f0d8;
+  --parch-dark:   #d4c090;
+  --sepia:        #8b6840;
+}
+html { scroll-behavior: smooth; }
+
+/* El fondo cálido y dorado idéntico al de tu panel de cuenta */
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  color: var(--ink);
+  background-color: #dfcaa0;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 3px,
+      rgba(100,70,20,0.015) 3px, rgba(100,70,20,0.015) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px, transparent 6px,
+      rgba(80,55,15,0.01) 6px, rgba(80,55,15,0.01) 7px
+    ),
+    radial-gradient(ellipse 110% 70% at 15% 10%,  rgba(235,215,155,0.45) 0%, transparent 60%),
+    radial-gradient(ellipse 90%  80% at 85% 90%,  rgba(160,125,65,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 70%  60% at 50% 50%,  rgba(245,230,185,0.40) 0%, transparent 60%),
+    linear-gradient(170deg, #ecdca8 0%, #dfc890 40%, #cca968 100%);
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 100% at 0%    0%,   rgba(80,50,15,0.12) 0%, transparent 40%),
+    radial-gradient(ellipse 100% 100% at 100% 0%,   rgba(80,50,15,0.10) 0%, transparent 40%),
+    radial-gradient(ellipse 100% 100% at 0%   100%, rgba(80,50,15,0.12) 0%, transparent 40%),
+    radial-gradient(ellipse 100% 100% at 100% 100%, rgba(80,50,15,0.12) 0%, transparent 40%);
+}
+header, main, footer, nav { position: relative; z-index: 1; }
+header {
+  text-align: center;
+  padding: 72px 24px 52px;
+  border-bottom: 1px solid rgba(59,31,78,0.15);
+}
+.project-label {
+  font-size: 10px; letter-spacing: 0.7em; text-transform: uppercase;
+  color: var(--purple-mid); margin-bottom: 18px; display: block;
+}
+.ornament-line {
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  margin: 0 auto 20px; max-width: 380px;
+}
+.ornament-line::before, .ornament-line::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.ornament-symbol { color: var(--gold); font-size: 14px; letter-spacing: 0.2em; }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(62px, 11vw, 120px);
+  font-weight: 700; font-style: italic; line-height: 0.95;
+  color: var(--purple); letter-spacing: -0.02em;
+}
+.title-sub {
+  font-family: 'IM Fell English', serif; font-style: italic;
+  font-size: 16px; color: var(--ink-soft); margin-top: 18px; letter-spacing: 0.06em;
+}
+nav {
+  display: flex; justify-content: center; gap: 0; padding: 0 24px;
+  border-bottom: 1px solid rgba(59,31,78,0.12);
+  background: rgba(229,212,168,0.45); backdrop-filter: blur(8px);
+  position: sticky; top: 0; z-index: 10;
+}
+nav a {
+  font-family: 'Cormorant Garamond', serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.38em; text-transform: uppercase; color: var(--ink-mid);
+  text-decoration: none; padding: 14px 22px; border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+nav a:hover { color: var(--purple); border-bottom-color: var(--gold); }
+nav a.active { color: var(--purple-mid) !important; border-bottom: 2px solid var(--gold) !important; }
+.section-header { padding: 60px 24px 28px; text-align: center; }
+.section-label { font-size: 10px; letter-spacing: 0.6em; text-transform: uppercase; color: var(--sepia); margin-bottom: 8px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: var(--purple); }
+.card-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px;
+  max-width: 1080px; margin: 0 auto; padding: 0 36px 90px;
+}
+@media (max-width: 680px) {
+  .card-grid { grid-template-columns: 1fr; padding: 0 18px 60px; }
+  nav a { padding: 12px 10px; font-size: 10px; letter-spacing: 0.2em; }
+}
+.card-grid a { text-decoration: none; display: block; }
+.card-grid a[hidden] { display: none !important; }
+.card {
+  position: relative; cursor: pointer; aspect-ratio: 4/3; border-radius: 3px; overflow: hidden;
+  background-color: #dfc990;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' seed='12' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.52  0 0 0 0 0.38  0 0 0 0 0.18  0 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 80% 60% at 25% 20%, rgba(210,185,115,0.6) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 80% at 75% 80%, rgba(170,135,75,0.4)  0%, transparent 50%),
+    linear-gradient(145deg, #eddea8 0%, #d9c485 35%, #c8af6a 65%, #bda060 100%);
+  box-shadow: 0 3px 12px rgba(42,31,14,0.15), 0 1px 3px rgba(42,31,14,0.10), inset 0 0 0 1px rgba(100,70,20,0.15);
+  transition: transform 0.38s cubic-bezier(0.22,1,0.36,1), box-shadow 0.38s;
+  animation: fadeUp 0.65s both;
+}
+@keyframes fadeUp { from { opacity:0; transform: translateY(28px); } to { opacity:1; transform: translateY(0); } }
+.card:hover { transform: translateY(-7px) rotate(0.3deg); box-shadow: 0 16px 40px rgba(42,31,14,0.22), 0 2px 6px rgba(42,31,14,0.12), inset 0 0 0 1px rgba(100,70,20,0.20); }
+.card::before {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+  background: linear-gradient(90deg, transparent 0%, rgba(100,70,20,0.08) 20%, transparent 35%, rgba(100,70,20,0.06) 55%, transparent 70%, rgba(100,70,20,0.08) 85%, transparent 100%);
+  z-index: 2;
+}
+.card::after { content: ''; position: absolute; bottom: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--gold), var(--purple-pale)); transition: width 0.48s cubic-bezier(0.22,1,0.36,1); z-index: 3; }
+.card:hover::after { width: 100%; }
+.card-watermark {
+  position: absolute; font-family: 'Playfair Display', serif; font-size: 120px; font-weight: 700; font-style: italic;
+  color: rgba(60, 40, 20, 0.20) !important; line-height: 1; top: 50%; left: 50%; transform: translate(-50%,-50%); user-select: none; pointer-events: none; z-index: 2;
+}
+.card:hover .card-watermark { color: rgba(60, 40, 20, 0.35) !important; }
+.card-corner { position: absolute; top: 12px; left: 14px; opacity: 0.45; transition: opacity 0.3s; z-index: 3; }
+.card:hover .card-corner { opacity: 0.7; }
+.card-corner-br { position: absolute; bottom: 12px; right: 14px; opacity: 0.45; transition: opacity 0.3s; transform: rotate(180deg); z-index: 3; }
+.card:hover .card-corner-br { opacity: 0.7; }
+.card-era { font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 5px; }
+.card-title { font-family: 'Playfair Display', serif; font-size: clamp(17px, 2.4vw, 22px); font-weight: 700; color: #f7f0d8; line-height: 1.2; margin-bottom: 6px; }
+.card-desc { font-family: 'IM Fell English', serif; font-style: italic; font-size: 13px; color: rgba(240,230,200,0.72); line-height: 1.55; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.35s; opacity: 0; }
+.card:hover .card-desc { max-height: 64px; opacity: 1; }
+.card-cta { display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold-light); opacity: 0; transform: translateX(-6px); transition: opacity 0.3s, transform 0.35s; }
+.card:hover .card-cta { opacity: 1; transform: translateX(0); }
+.card-cta::after { content: '→'; font-size: 12px; }
+.card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s ease; z-index: 1; }
+.card-img.loaded { opacity: 1; }
+.card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px 20px 20px; background: linear-gradient(to top, rgba(10,6,2,0.88) 0%, rgba(20,12,4,0.70) 45%, rgba(20,12,4,0.20) 80%, transparent 100%); transition: background 0.35s; z-index: 4; }
+.card:hover .card-body { background: linear-gradient(to top, rgba(10,6,2,0.92) 0%, rgba(20,12,4,0.78) 45%, rgba(20,12,4,0.28) 80%, transparent 100%); }
+.quote-section { max-width: 660px; margin: 0 auto 80px; padding: 0 32px; text-align: center; }
+blockquote { font-family: 'IM Fell English', serif; font-style: italic; font-size: 21px; line-height: 1.75; color: var(--purple); position: relative; padding: 0 20px; }
+blockquote::before { content: '\201C'; font-size: 90px; color: var(--gold); opacity: 0.3; position: absolute; top: -22px; left: -12px; line-height: 1; font-family: 'Playfair Display', serif; }
+cite { display: block; margin-top: 14px; font-style: normal; font-size: 11px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--sepia); }
+footer { border-top: 1px solid rgba(59,31,78,0.15); padding: 36px 24px; text-align: center; }
+.footer-ornament { color: var(--gold); font-size: 20px; margin-bottom: 10px; opacity: 0.55; }
+.footer-text { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--ink-soft); opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="project-label">Proyecto Académico</span>
+  <div class="ornament-line"><span class="ornament-symbol"> ✦ ✦ ✦ </span></div>
+  <h1>Génesis</h1>
+  <p class="title-sub">Historia y Ciudadanía — Catálogo Global</p>
+</header>
+
+<nav>
+  <a href="#" class="nav-filter active" onclick="filterCatalog('todos'); return false;">Ver Todo</a>
+  <a href="#" class="nav-filter" onclick="filterCatalog('historia'); return false;">Historia</a>
+  <a href="#" class="nav-filter" onclick="filterCatalog('ciudadania'); return false;">Ciudadanía</a>
+  <a href="#" class="nav-filter" onclick="filterCatalog('juegos'); return false;">Juegos</a>
+  <a href="cuenta.html" class="nav-account">Mi Cuenta</a>
+</nav>
+
+<div class="section-header">
+  <p class="section-label">Catálogo histórico</p>
+  <h2 class="section-title">Períodos Fundamentales</h2>
+</div>
+
+<div class="card-grid">
+  <!-- 01 — Independencia de Colombia -->
+  <a href="independencia.html" data-category="historia">
+    <div class="card" id="independencia">
+      <img class="card-img loaded" src="florero.jfif" alt="Batalla de Boyacá">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">1810 – 1830</p>
+        <h3 class="card-title">Independencia de Colombia</h3>
+        <p class="card-desc">El proceso emancipador que rompió tres siglos de dominio español y forjó la nueva república en América del Sur.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 02 — Período Sengoku -->
+  <a href="sengoku.html" data-category="historia">
+    <div class="card" id="sengoku">
+      <img class="card-img loaded" src="daimayo.jfif" alt="Período Sengoku">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">1467 ⧗ 1603</p>
+        <h3 class="card-title">Período Sengoku</h3>
+        <p class="card-desc">La era de los estados en guerra en el Japón feudal, marcada por brutales conflictos militares y el ascenso de los samuráis.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 03 — La Batalla de Waterloo -->
+  <a href="waterloo.html" data-category="historia">
+    <div class="card" id="waterloo">
+      <img class="card-img loaded" src="imagen_waterloo.jfif" alt="Batalla de Waterloo">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">18 de Junio de 1815</p>
+        <h3 class="card-title">Batalla de Waterloo</h3>
+        <p class="card-desc">El histórico y definitivo enfrentamiento en Bélgica que marcó la caída final de Napoleón Bonaparte y su imperio.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 04 — El Renacimiento -->
+  <a href="renacimiento.html" data-category="historia">
+    <div class="card" id="renacimiento">
+      <img class="card-img loaded" src="imagen 4.jfif" alt="El Renacimiento">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Siglos XIV – XVII</p>
+        <h3 class="card-title">El Renacimiento</h3>
+        <p class="card-desc">El renacer cultural, artístico y científico que quebró el teocentrismo medieval y abrió las puertas a la Modernidad.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 05 — Ilustración y Revolución Francesa -->
+  <a href="revolucion_francesa.html" data-category="historia">
+    <div class="card" id="rev_francesa">
+      <img class="card-img loaded" src="imagen_francesa.jpg" alt="Revolución Francesa">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">1789 ⧗ 1799</p>
+        <h3 class="card-title">Revolución Francesa</h3>
+        <p class="card-desc">El levantamiento popular que derrocó el absolutismo monárquico y proclamó la Declaración de los Derechos del Hombre.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 06 — Revolución Industrial -->
+  <a href="revolucion_industrial.html" data-category="historia">
+    <div class="card" id="rev_industrial">
+      <img class="card-img loaded" src="imagen_industrial.jpg" alt="Revolución Industrial">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Siglos XVIII - XIX</p>
+        <h3 class="card-title">Revolución Industrial</h3>
+        <p class="card-desc">El salto tecnológico y económico del vapor que originó el capitalismo moderno y la consolidación del movimiento obrero.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 07 — Primera Guerra Mundial -->
+  <a href="primera_guerra.html" data-category="historia">
+    <div class="card" id="p_guerra">
+      <img class="card-img loaded" src="imagen_guerra1.jpg" alt="Primera Guerra Mundial">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">1914 – 1918</p>
+        <h3 class="card-title">Primera Guerra Mundial</h3>
+        <p class="card-desc">La Gran Guerra de trincheras detonada por tensiones imperialistas que puso fin a los antiguos imperios dinásticos.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 08 — Segunda Guerra Mundial -->
+  <a href="segunda_guerra.html" data-category="historia">
+    <div class="card" id="s_guerra">
+      <img class="card-img loaded" src="imagen_guerra2.jpg" alt="Segunda Guerra Mundial">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">1939 – 1945</p>
+        <h3 class="card-title">Segunda Guerra Mundial</h3>
+        <p class="card-desc">El conflicto total contra los totalitarismos fascistas que dio paso a la creación de las Naciones Unidas (ONU).</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 09 — La Guerra Fría -->
+  <a href="guerra_fria.html" data-category="historia">
+    <div class="card" id="g_fria">
+      <img class="card-img loaded" src="imagen_guerrafria.jpg" alt="Guerra Fría">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">1947 – 1991</p>
+        <h3 class="card-title">La Guerra Fría</h3>
+        <p class="card-desc">El orden mundial bipolar determinado por la rivalidad ideológica, económica y nuclear entre EE.UU. y la URSS.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 10 — Guerra de los Mil Días -->
+  <a href="mil_dias.html" data-category="historia">
+    <div class="card" id="mildias">
+      <img class="card-img loaded" src="imagen_mildias.jfif" alt="Guerra de los Mil Días">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">1899 – 1902</p>
+        <h3 class="card-title">Guerra de los Mil Días</h3>
+        <p class="card-desc">La más sangrienta guerra civil bipartidista en Colombia que devastó la economía y propició la separación de Panamá.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 11 — Época de La Violencia y Frente Nacional -->
+  <a href="la_violencia.html" data-category="historia">
+    <div class="card" id="laviolencia">
+      <img class="card-img loaded" src="imagen_violencia.jfif" alt="El Bogotazo">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">1948 – 1974</p>
+        <h3 class="card-title">Violencia y Frente Nacional</h3>
+        <p class="card-desc">Desde el trágico Bogotazo hasta el pacto bipartidista que alternó las presidencias excluyendo otros sectores.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 12 — Conflicto Armado Interno -->
+  <a href="conflicto_armado.html" data-category="historia">
+    <div class="card" id="conflicto">
+      <img class="card-img loaded" src="imagen_conflicto.jpg" alt="Conflicto Colombiano">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Fines del Siglo XX - Presente</p>
+        <h3 class="card-title">Conflicto Interno Colombiano</h3>
+        <p class="card-desc">Surgimiento de guerrillas, paramilitarismo y narcotráfico; dinámicas críticas evaluadas de forma constante en el examen ICFES.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 13 — Constitución Política de 1991 -->
+  <a href="constitucion_1991.html" data-category="ciudadania">
+    <div class="card" id="const91">
+      <img class="card-img loaded" src="imagen_constitucion.jfif" alt="Constitución del 91">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Norma de Normas</p>
+        <h3 class="card-title">Constitución de 1991</h3>
+        <p class="card-desc">Nuestra Carta Magna vigente que refundó a Colombia como un Estado Social de Derecho y amplió la democracia participativa.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 14 — Derechos Constitucionales y Colectivos -->
+  <a href="derechos_fundamentales.html" data-category="ciudadania">
+    <div class="card" id="dfundamentales">
+      <img class="card-img loaded" src="imagen_derechos.jpg" alt="Derechos Humanos">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Título II CP</p>
+        <h3 class="card-title">Derechos y Deberes</h3>
+        <p class="card-desc">Garantías fundamentales (vida, libertad) y colectivos (medio ambiente sano) amparados por el orden constitucional.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 15 — Mecanismos de Participación Ciudadana -->
+  <a href="mecanismos_participacion.html" data-category="ciudadania">
+    <div class="card" id="m_participacion">
+      <img class="card-img loaded" src="imagen_mecanismos1.jfif" alt="Participación Ciudadana">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Democracia Activa</p>
+        <h3 class="card-title">Mecanismos de Participación</h3>
+        <p class="card-desc">El voto, el plebiscito, el referendo y la consulta popular: herramientas con las que el pueblo ejerce su soberanía.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 16 — Las Ramas del Poder Público -->
+  <a href="ramas_poder.html" data-category="ciudadania">
+    <div class="card" id="ramas_poder">
+      <img class="card-img loaded" src="imagen_ramas.jpg" alt="Poder Público">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Estructura del Estado</p>
+        <h3 class="card-title">Ramas del Poder Público</h3>
+        <p class="card-desc">Ejecutiva, Legislativa y Judicial. La división del poder público estructurada para asegurar los frenos y contrapesos constitucionales.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 17 — Mecanismos de Protección (Tutela y Petición) -->
+  <a href="accion_tutela.html" data-category="ciudadania">
+    <div class="card" id="m_proteccion">
+      <img class="card-img loaded" src="imagen_tutela.jpg" alt="Protección Ciudadana">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Garantías Ciudadanas</p>
+        <h3 class="card-title">Tutela y Derecho de Petición</h3>
+        <p class="card-desc">Herramientas jurídicas inmediatas para exigir el respeto de los derechos fundamentales y elevar solicitudes respetuosas.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 18 — Órganos de Control del Estado -->
+  <a href="organos_control.html" data-category="ciudadania">
+    <div class="card" id="control">
+      <img class="card-img loaded" src="control.png" alt="Órganos de Control">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Vigilancia Nacional</p>
+        <h3 class="card-title">Órganos de Control</h3>
+        <p class="card-desc">Procuraduría, Contraloría y Defensoría del Pueblo. Entidades autónomas delegadas para resguardar el patrimonio y la gestión pública.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 19 — Mecanismos Alternativos de Solución de Conflictos -->
+  <a href="masc.html" data-category="ciudadania">
+    <div class="card" id="masc">
+      <img class="card-img loaded" src="conciliacion.jpg" alt="MASC">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Convivencia y Paz</p>
+        <h3 class="card-title">Mecanismos MASC</h3>
+        <p class="card-desc">La conciliación, mediación y amigable composición orientadas a resolver controversias pacíficamente sin pleitos judiciales.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 20 — Estado Social de Derecho -->
+  <a href="estado_social.html" data-category="ciudadania">
+    <div class="card" id="estadosocial">
+      <img class="card-img loaded" src="Estado de derecho.jfif" alt="Estado Social">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Principios Constitucionales</p>
+        <h3 class="card-title">Estado Social de Derecho</h3>
+        <p class="card-desc">Modelo estatal comprometido con la defense de la dignidad humana, la equidad social y los servicios públicos esenciales.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 21 — Diversidad Étnica, Cultural y Pluralismo -->
+  <a href="diversidad_cultural.html" data-category="ciudadania">
+    <div class="card" id="diversidad">
+      <img class="card-img loaded" src="diversidad.jpg"Pluralismo">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Pluralismo Colombiano</p>
+        <h3 class="card-title">Diversidad Étnica</h3>
+        <p class="card-desc">El reconocimiento constitucional que ampara los saberes, identidades y las autonomías indígenas y afrodescendientes.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 22 — Bloque de Constitucionalidad -->
+  <a href="bloque_constitucionalidad.html" data-category="ciudadania">
+    <div class="card" id="bloque">
+      <img class="card-img loaded" src="bloque.jpg" alt="Leyes Internacionales">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Leyes Internacionales</p>
+        <h3 class="card-title">Bloque de Constitucionalidad</h3>
+        <p class="card-desc">Normas y tratados mundiales sobre Derechos Humanos incorporados con rango constitucional en el ordenamiento interno.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 23 — Fundamentos de la Democracia y Soberanía -->
+  <a href="democracia_soberania.html" data-category="ciudadania">
+    <div class="card" id="democracia">
+      <img class="card-img loaded" src="democracia1.jpg" alt="Democracia">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Poder Popular</p>
+        <h3 class="card-title">Democracia y Soberanía</h3>
+        <p class="card-desc">El análisis crítico de los sistemas políticos y cómo la soberanía reside exclusivamente en el pueblo.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 24 — Globalización y Derechos Humanos -->
+  <a href="globalizacion.html" data-category="ciudadania">
+    <div class="card" id="globalizacion">
+      <img class="card-img loaded" src="globalizacion.jpg" alt="Mundo Global">
+      <svg class="card-corner" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <svg class="card-corner-br" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M2 26 L2 2 L26 2" stroke="#a07520" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="card-body">
+        <p class="card-era">Relaciones Mundiales</p>
+        <h3 class="card-title">Globalización y DD.HH.</h3>
+        <p class="card-desc">El impacto de las políticas globales en la soberanía interna y los retos para proteger la dignidad humana en el siglo XXI.</p>
+      </div>
+    </div>
+  </a>
+</div>
+
+<div class="quote-section">
+  <blockquote>
+    Un pueblo que no conoce su historia está condenado a repetirla.
+    <cite>— Edmund Burke</cite>
+  </blockquote>
+</div>
+
+<footer>
+  <div class="footer-ornament"> ✦ </div>
+  <p class="footer-text">Génesis &nbsp;·&nbsp; Historia y Ciudadanía &nbsp;·&nbsp; Proyecto Académico</p>
+</footer>
+
+<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/05/28/13/20260528130555-Y6A98KMI.js" defer></script> 
+
+<script>
+// 1. Esta es tu función original mejorada para manejar los estilos activos de forma segura
+function filterCatalog(category) {
+  // Remover la clase activa de todos los enlaces del nav
+  document.querySelectorAll('nav a').forEach(link => {
+    link.classList.remove('active');
+  });
+  
+  // Buscar qué enlace coincide con la categoría para ponerle la línea dorada
+  const activeLink = Array.from(document.querySelectorAll('nav a')).find(link => {
+    const href = link.getAttribute('onclick') || '';
+    return href.includes(`'${category}'`);
+  });
+  
+  if (activeLink) {
+    activeLink.classList.add('active');
+  } else if (window.event && window.event.currentTarget) {
+    window.event.currentTarget.classList.add('active');
+  }
+
+  // Filtrar las cartas en la cuadrícula
+  const links = document.querySelectorAll('.card-grid > a');
+  links.forEach(link => {
+    const cardCategory = link.getAttribute('data-category');
+    if (category === 'todos' || cardCategory === category) {
+      link.removeAttribute('hidden');
+    } else {
+      link.setAttribute('hidden', '');
+    }
+  });
+}
+
+// 2. ¡NUEVO! Detectar el filtro de la URL automáticamente al cargar la página
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const filtroUrl = urlParams.get('filtro'); // Lee si dice 'historia', 'ciudadania', etc.
+
+  if (filtroUrl) {
+    filterCatalog(filtroUrl);
+  }
+});
+</script>
+
+</body>
+</html>
