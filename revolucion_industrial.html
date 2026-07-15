@@ -132,7 +132,6 @@
             color: #2b1f1d;
         }
 
-        /* Cuadro de concientización con brillo (Glow effect) */
         /* Cuadro de concientización con brillo amarillo intenso */
         .reflexion-box {
             background-color: #ede2c4;
@@ -141,12 +140,10 @@
             margin-top: 50px;
             margin-bottom: 40px;
             position: relative;
-            /* Brillo amarillo continuo de fondo */
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); 
             transition: all 0.5s ease;
         }
 
-        /* Animación y aumento de brillo amarillo al pasar el mouse */
         .reflexion-box:hover {
             transform: translateY(-3px);
             box-shadow: 0 0 35px rgba(255, 215, 0, 0.95);
@@ -167,17 +164,15 @@
             gap: 10px;
         }
 
-        /* Contenedor del símbolo animado */
         .simbolo-libertad {
             display: inline-block;
             font-size: 1.3em;
             transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* Efecto de Injusticia / Libertad Rota al pasar el mouse por el cuadro */
         .reflexion-box:hover .simbolo-libertad {
-            transform: rotate(180px) scale(1.2) translateY(3px); /* Se voltea e inclina */
-            filter: grayscale(1) sepia(1) hue-rotate(-50deg) saturate(5); /* Cambia a un tono dramático y oscuro */
+            transform: rotate(180px) scale(1.2) translateY(3px); 
+            filter: grayscale(1) sepia(1) hue-rotate(-50deg) saturate(5); 
             opacity: 0.8;
         }
 
@@ -187,26 +182,28 @@
             color: #4a3b2c;
             line-height: 1.6;
         }
+
         .btn-preguntas {
-    display: block;
-    width: 220px;
-    margin: 40px auto 0 auto;
-    padding: 14px;
-    background-color: #5b3f70; /* Morado más oscuro corregido */
-    color: #f4ecd8;
-    text-align: center;
-    text-decoration: none;
-    font-size: 0.85em;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-}
+            display: block;
+            width: 220px;
+            margin: 40px auto 0 auto;
+            padding: 14px;
+            background-color: #5b3f70; 
+            color: #f4ecd8;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.85em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 <body>
 
-  <a class="btn-back" href="Apartados.html">Volver</a>
+    <!-- Botón volver corregido aquí abajo -->
+    <a class="btn-volver" href="Apartados.html">← Volver</a>
     <div class="logo-genesis">Génesis</div>
 
     <div class="container">
@@ -233,19 +230,19 @@
         
         <p>A nivel de organización laboral, los obreros empezaron a unirse en <span class="highlight">sindicatos (Trade Unions)</span> para exigir derechos básicos, ya que las fábricas del siglo XIX destacaban por la brutal <span class="highlight">explotación laboral infantil y jornadas extremas</span> que superaban las 14 horas diarias. Con el tiempo, entrado el siglo XX, empresarios como <span class="highlight">Henry Ford</span> optimizaron al máximo la velocidad de producción introduciendo la famosa <span class="highlight">línea de montaje (producción en cadena)</span>.</p>
 
-            <!-- CUADRO DE REFLEXIÓN ACTUALIZADO CON SÍMBOLO -->
+        <!-- CUADRO DE REFLEXIÓN -->
         <div class="reflexion-box">
             <h3>
                 <span class="simbolo-libertad">🕊️</span> 
                 El Espejismo de la "Libertad Obrera" 
                 <span class="simbolo-libertad">🕊️</span>
             </h3>
-            <p>A diferencia de la época feudal o de la antigüedad, la Revolución Industrial introdujo un concepto paradójico: ante la ley, los obreros eran hombres completamente "libres".</p>
+            <p>A diferencia de la época feudal o de la antigüedad, la Revolución Industrial introdujo un conceptoparadójico: ante la ley, los obreros eran hombres completamente "libres".</p>
             <p>Sin embargo, como analizó el filósofo y economista alemán <span class="highlight">Karl Marx</span> (quien junto a Friedrich Engels escribió el <em>"Manifiesto Comunista"</em> en 1848), esta libertad ocultaba una realidad alarmante. Al no poseer tierras ni máquinas, el trabajador industrial solo tenía su cuerpo y su tiempo. Para sobrevivir, se veía obligado a vender su fuerza de trabajo a cambio de un salario miserable.</p>
             <p>¿Qué sentido real tenía ser libres si la única alternativa a no aceptar jornadas inhumanas de 16 horas era morir de hambre en las calles? Las cadenas ya no eran de hierro, sino de necesidad económica. La coacción física fue reemplazada por una sutil pero implacable presión psicológica.</p>
         </div>
 
-        <!-- Botón morado exacto de tu UI -->
+        <!-- Botón morado de preguntas -->
          <a href="preguntas.revolucion_industrial.html" class="btn-preguntas">Preguntas →</a>
     </div>
 
